@@ -325,15 +325,18 @@ def llm_decision(provider: str, packet: dict) -> dict:
                        for part in (c.get("content") or {}).get("parts", []))
     else:
         # Two competing open-weight model families on Groq's FREE plan.
+        groq_body = {"model": model, "temperature": 0.2,
+                     "max_completion_tokens": 1000,
+                     "response_format": {"type": "json_schema", "json_schema": {
+                         "name": "paper_trade_decision", "strict": True, "schema": DECISION_SCHEMA}},
+                     "messages": [{"role": "system", "content": SYSTEM},
+                                  {"role": "user", "content": payload}]}
+        # GPT-OSS does not support reasoning_format; Qwen 3.8 does.
+        if provider == "groq_qwen":
+            groq_body["reasoning_format"] = "hidden"
         obj = http_json("POST", "https://api.groq.com/openai/v1/chat/completions",
             headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"},
-            body={"model": model, "temperature": 0.2,
-                  "max_completion_tokens": 1000,
-                  "response_format": {"type": "json_schema", "json_schema": {
-                      "name": "paper_trade_decision", "strict": True, "schema": DECISION_SCHEMA}},
-                  "reasoning_format": "hidden",
-                  "messages": [{"role": "system", "content": SYSTEM},
-                               {"role": "user", "content": payload}]}, timeout=60)
+            body=groq_body, timeout=60)
         text = str(((obj.get("choices") or [{}])[0].get("message") or {}).get("content") or "")
     try:
         return json.loads(text)
