@@ -61,19 +61,22 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add state/tournament.sqlite3.gz docs/index.html docs/data.json docs/.nojekyll
+          git add state/tournament.sqlite3.gz docs/index.html docs/data.json docs/.nojekyll STATUS.md
           if [ -d docs/results ]; then git add docs/results/*.csv; fi
           if ! git diff --cached --quiet; then
             git commit -m 'paper tick: update scoreboard and ledger'
             git push origin HEAD:main
           fi
       - name: Configure GitHub Pages
+        if: ${{ vars.ARENA_PAGES_ENABLED == 'true' }}
         uses: actions/configure-pages@v5
       - name: Upload only public website data
+        if: ${{ vars.ARENA_PAGES_ENABLED == 'true' }}
         uses: actions/upload-pages-artifact@v4
         with:
           path: docs
           retention-days: 1  # Minimal artifact storage on GitHub Free.
       - name: Deploy the updated scoreboard
+        if: ${{ vars.ARENA_PAGES_ENABLED == 'true' }}
         id: deployment
         uses: actions/deploy-pages@v4
