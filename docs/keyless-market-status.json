@@ -1,0 +1,10 @@
+{
+  "checked_at_utc": "2026-11-14T19:40:45+00:00",
+  "data_check_pass": true,
+  "discovered_count": 92,
+  "eligible_count": 10,
+  "model_inference_calls": 0,
+  "trade_orders": 0,
+  "tournament_started": false,
+  "note": "Only public market and currency data queried. No keys used or trading."
+}
