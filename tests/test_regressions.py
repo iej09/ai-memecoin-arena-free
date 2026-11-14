@@ -187,3 +187,15 @@ def test_bad_ai_request_cannot_invest_more_than_cash(tmp_path):
         engine.execute('gemini_free', {'action': 'BUY', 'mint': key, 'usd_amount': 10_000_000}, {key: coin})
         assert ledger.portfolio('gemini_free')['cash_usd'] >= -0.000001
         assert engine.portfolio_packet('gemini_free')['exposure_percent'] <= 75.01
+
+
+def test_repository_fallback_scoreboard_is_public_safe(tmp_path, monkeypatch):
+    import runpy
+    import dashboard
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(dashboard, "DB", tmp_path / "none.sqlite3")
+    runpy.run_module("static_export", run_name="__main__")
+    status = (tmp_path / "STATUS.md").read_text()
+    assert "NOT_STARTED" in status
+    assert "\n" in status
+    assert "GEMINI_API_KEY" not in status and "GROQ_API_KEY" not in status
