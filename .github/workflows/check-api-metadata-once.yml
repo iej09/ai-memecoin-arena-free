@@ -60,7 +60,7 @@ jobs:
               gemini["available_flash_models"] = sorted(
                   n for n in names if n.startswith("gemini-") and "flash" in n)[:12]
           if groq_key:
-              code, data = list_models(
+              code, data, reason = list_models(
                   "https://api.groq.com/openai/v1/models",
                   {"Authorization": "Bearer " + groq_key, "Accept": "application/json",
                    "User-Agent": "AI-Memecoin-Arena-Preflight/1"})
