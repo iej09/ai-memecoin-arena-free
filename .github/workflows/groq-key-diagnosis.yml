@@ -1,0 +1,68 @@
+name: Diagnose Groq credential without inference
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/groq-key-diagnosis.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check safe key format and a metadata-only API request
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          from datetime import datetime,timezone
+          from urllib.request import Request,urlopen
+          from urllib.error import HTTPError
+          key=os.environ.get("GROQ_API_KEY","")
+          data={
+            "time_utc":datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "key_present":bool(key),
+            "resembles_groqcloud_key":key.startswith("gsk_"),
+            "resembles_xai_grok_key":key.startswith("xai-"),
+            "model_listing_status":None,
+            "error_type":"none",
+            "error_body_format":"unknown",
+            "inference_requests":0,
+            "trades":0,
+          }
+          if key:
+            try:
+              request=Request("https://api.groq.com/openai/v1/models",headers={"Authorization":"Bearer "+key,"Accept":"application/json","User-Agent":"AI-Memecoin-Arena-Preflight/1"})
+              with urlopen(request,timeout=25) as res:
+                data["model_listing_status"]=res.status
+                data["error_body_format"]="json"
+            except HTTPError as ex:
+              data["model_listing_status"]=ex.code
+              try:
+                decoded=json.loads(ex.read(4096).decode("utf-8","replace"))
+                inner=decoded.get("error",{})
+                kind=inner.get("type","")
+                data["error_type"]=kind if kind in ("permissions_error","authentication_error","invalid_request_error","rate_limit_error") else "other"
+                data["error_body_format"]="json"
+              except Exception:
+                data["error_body_format"]="not_json"
+            except Exception:
+              data["error_type"]="network_error"
+          Path("docs").mkdir(exist_ok=True)
+          Path("docs/groq-diagnostic.json").write_text(json.dumps(data,indent=2)+"\n")
+          print("Credential diagnostics complete. No key values printed.")
+          PY
+      - name: Commit sanitized report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/groq-diagnostic.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: publish safe Groq diagnostic'
+            git push origin HEAD:main
+          fi
