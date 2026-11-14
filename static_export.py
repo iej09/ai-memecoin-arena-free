@@ -27,4 +27,22 @@ if new_data.get('status') == 'FINISHED':
         dest.mkdir(exist_ok=True)
         for csv in source.glob('*.csv'):
             shutil.copy2(csv, dest / csv.name)
+# Repository-native fallback scoreboard, available even before Pages is enabled.
+md = ["# AI Memecoin Arena — read-only status", "",
+      "This is a **paper-only** simulation; no real crypto orders are sent.", "",
+      f"**Status:** {new_data.get('status', 'UNKNOWN')}",
+      f"**As of (UTC):** {new_data.get('asof_utc', 'not run')}", "",
+      "| Competitor | Virtual CAD | Return | Exposure |",
+      "|---|---:|---:|---:|"]
+for account in new_data.get('scoreboard', []):
+    md.append(f"| {account['name']} | ${account['nav_cad']:,.2f} | "
+              f"{account['return_pct']:+.2f}% | {account['exposure_pct']:.1f}% |")
+if not new_data.get('scoreboard'):
+    md.append("| No portfolios yet | — | — | — |")
+meta = new_data.get('meta') or {}
+md.extend(["", f"**Market status:** {meta.get('last_market_status', 'not checked')}",
+           f"**Last healthy scan:** {meta.get('last_healthy_tick', 'none')}",
+           "", "GitHub Actions and data-provider outages may delay this snapshot."])
+Path('STATUS.md').write_text("\\n".join(md) + "\\n", encoding='utf-8')
+
 print('Exported public static paper-only dashboard in docs/')
