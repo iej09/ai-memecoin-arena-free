@@ -1,0 +1,32 @@
+{
+  "checked_at_utc": "2026-11-14T19:38:08+00:00",
+  "gemini": {
+    "key_present": true,
+    "model_list_http_status": 200,
+    "configured_model_found": true,
+    "available_flash_models": [
+      "gemini-2.5-flash",
+      "gemini-2.5-flash-image",
+      "gemini-2.5-flash-lite",
+      "gemini-2.5-flash-native-audio-latest",
+      "gemini-2.5-flash-native-audio-preview-09-2025",
+      "gemini-2.5-flash-native-audio-preview-12-2025",
+      "gemini-2.5-flash-preview-tts",
+      "gemini-3-flash-preview",
+      "gemini-3.1-flash-image",
+      "gemini-3.1-flash-image-preview",
+      "gemini-3.1-flash-lite",
+      "gemini-3.1-flash-lite-image"
+    ]
+  },
+  "groq": {
+    "key_present": true,
+    "model_list_http_status": 403,
+    "gptoss_model_found": false,
+    "qwen_model_found": false
+  },
+  "model_generation_calls": 0,
+  "trade_orders": 0,
+  "tournament_started_by_this_workflow": false,
+  "disclaimer": "Read-only model metadata checks. Does not verify free billing tier or inference behavior."
+}
