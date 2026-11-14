@@ -95,3 +95,18 @@ def test_stale_fx_after_start_is_explicit(tmp_path,monkeypatch):
     e.step()
     assert ledger.meta('fx_status') == 'LAST_KNOWN'
     assert ledger.meta('started_at') is not None
+
+
+def test_groq_model_specific_reasoning_options(monkeypatch):
+    monkeypatch.setenv("GROQ_API_KEY", "unit-test-not-a-key")
+    seen = {}
+    sample = '{"action":"HOLD","mint":"","usd_amount":0,"research_type":"ALL","reason":"test"}'
+    def mock_request(method, url, **kwargs):
+        seen[kwargs["body"]["model"]] = kwargs["body"]
+        return {"choices":[{"message":{"content":sample}}]}
+    monkeypatch.setattr(a,"http_json", mock_request)
+    for model in ("groq_gptoss", "groq_qwen"):
+        assert a.llm_decision(model,{"candidates": []})["action"] == "HOLD"
+    assert "reasoning_format" not in seen["openai/gpt-oss-120b"]
+    assert seen["qwen/qwen3.8-27b"]["reasoning_format"] == "hidden"
+    assert all(x["response_format"]["json_schema"]["strict"] for x in seen.values())
