@@ -110,3 +110,80 @@ def test_groq_model_specific_reasoning_options(monkeypatch):
     assert "reasoning_format" not in seen["openai/gpt-oss-120b"]
     assert seen["qwen/qwen3.8-27b"]["reasoning_format"] == "hidden"
     assert all(x["response_format"]["json_schema"]["strict"] for x in seen.values())
+
+
+def test_complete_seven_day_paper_run_and_final_csv(tmp_path, monkeypatch):
+    """Run through opening trades to the deadline with simulated AI replies."""
+    now = 1_800_000_000.0
+    monkeypatch.setattr(a.time, "time", lambda: now)
+    monkeypatch.setattr(a, "fx_cad_per_usd", lambda: 1.4)
+    monkeypatch.setattr(a, "RESULTS_DIR", tmp_path / "exports")
+    class Market:
+        def discover(self):
+            return [tok('A' * 32)]
+        def quote(self, in_mint, out_mint, amount):
+            if in_mint == a.USDC:
+                return amount * 2
+            if out_mint == a.USDC:
+                return amount // 2
+            return None
+    def decisions(agent, packet):
+        if agent == "gemini_free" and not packet["portfolio"]["holdings"]:
+            return {"action": "BUY", "mint": 'A' * 32, "usd_amount": 150, "reason": "mock buy"}
+        return {"action": "HOLD", "mint": "", "usd_amount": 0, "reason": "mock hold"}
+    monkeypatch.setattr(a, "llm_decision", decisions)
+    ledger = a.Ledger(tmp_path / 'final.sqlite3')
+    engine = a.Engine(ledger, Market())
+    engine.step()
+    started_at = ledger.meta('started_at')
+    assert started_at == now
+    assert ledger.meta('deadline') == now + 7 * 86400
+    assert ledger.db.execute('SELECT COUNT(*) FROM holdings').fetchone()[0] > 0
+    now += 7 * 86400 + 1
+    engine.step()
+    assert ledger.meta('finished') is True
+    assert ledger.db.execute('SELECT COUNT(*) FROM holdings').fetchone()[0] == 0
+    assert (tmp_path / 'exports' / 'trades.csv').is_file()
+    assert ledger.meta('deadline') == started_at + 7 * 86400
+
+
+def test_jupiter_quote_never_requests_a_real_transaction(monkeypatch):
+    j = a.Jupiter()
+    observed = {}
+    def get(path, params):
+        observed.update(path=path, params=params)
+        return {'outAmount': '123400'}
+    monkeypatch.setattr(j, 'get', get)
+    assert j.quote(a.USDC, 'A' * 32, 1000000) == 123400
+    assert observed['path'] == '/swap/v2/order'
+    assert observed['params'].get('taker') is None
+    assert observed['params'].get('userPublicKey') is None
+    assert 'transaction' not in str(observed).lower()
+
+
+def test_risk_filter_rejects_missing_authorities_and_extreme_holder_concentration():
+    base = tok('A' * 32)
+    for patch in (
+        {'audit': {'mintAuthorityDisabled': True, 'freezeAuthorityDisabled': True}},
+        {'audit': {**base['audit'], 'topHoldersPercentage': 77}},
+        {'audit': {**base['audit'], 'freezeAuthorityDisabled': False}},
+        {'organicScore': 0},
+        {'liquidity': 1},
+    ):
+        assert not a.eligible({**base, **patch})
+
+
+def test_bad_ai_request_cannot_invest_more_than_cash(tmp_path):
+    class Market:
+        def quote(self, im, om, amt):
+            return amt * 2 if im == a.USDC else amt // 2
+    ledger = a.Ledger(tmp_path / 'risk.sqlite3')
+    ledger.initialize(1.4)
+    engine = a.Engine(ledger, Market())
+    token = tok('A' * 32)
+    for n in range(4):
+        key = chr(65 + n) * 32
+        coin = {**token, 'id': key}
+        engine.execute('gemini_free', {'action': 'BUY', 'mint': key, 'usd_amount': 10_000_000}, {key: coin})
+        assert ledger.portfolio('gemini_free')['cash_usd'] >= -0.000001
+        assert engine.portfolio_packet('gemini_free')['exposure_percent'] <= 75.01
