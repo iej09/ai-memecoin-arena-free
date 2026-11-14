@@ -1,0 +1,78 @@
+name: Check real round-trip quotes without executing swaps
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/check-quote-routes-once.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Query token discovery and quote both ways without a taker address
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, time
+          from datetime import datetime,timezone
+          from pathlib import Path
+          from tournament import Jupiter,USDC,eligible,FILL_HAIRCUT,MAX_ROUND_TRIP_LOSS
+          market=Jupiter()
+          discovered=market.discover()
+          candidates=[t for t in discovered if eligible(t)][:5]
+          attempted=0; buys=0; reverse_routes=0; viable=0
+          roundtrip=[]
+          for token in candidates:
+              attempted+=1
+              qty=market.quote(USDC, token['id'], 20_000_000)
+              if not qty:
+                  continue
+              buys+=1
+              net_qty=int(qty*(1-FILL_HAIRCUT))
+              proceeds=market.quote(token['id'],USDC,net_qty)
+              if not proceeds:
+                  continue
+              reverse_routes+=1
+              loss=max(0.,1.0-(proceeds/1_000_000)/20)
+              roundtrip.append(round(loss*100,2))
+              if loss<=MAX_ROUND_TRIP_LOSS:
+                  viable+=1
+          report={
+              'checked_at_utc':datetime.now(timezone.utc).isoformat(timespec='seconds'),
+              'tokens_discovered':len(discovered),
+              'screened_candidates':len(candidates),
+              'buy_quotes':buys,
+              'reverse_sell_quotes':reverse_routes,
+              'executable_size_roundtrips_within_loss_cap':viable,
+              'tested_purchase_usd':20,
+              'round_trip_losses_percent':roundtrip,
+              'no_taker_address':True,
+              'signed_transactions':0,
+              'trades':0,
+              'model_calls':0,
+              'passed':viable>0,
+          }
+          Path('docs').mkdir(exist_ok=True)
+          Path('docs/quote-route-check.json').write_text(json.dumps(report,indent=2)+'\\n')
+          print('Quote-only round-trip routes:',viable,'of',attempted, 'tested candidates')
+          PY
+      - name: Save public nonsecret summary
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/quote-route-check.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: record bidirectional quote-only check'
+            git push origin HEAD:main
+          fi
+      - name: Fail if there are no realistic bidirectional quote routes
+        run: python -c 'import json; assert json.load(open("docs/quote-route-check.json"))["passed"], "No executable-sized quote pair passed"'
