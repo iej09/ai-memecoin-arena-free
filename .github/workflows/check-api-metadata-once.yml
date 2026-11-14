@@ -62,7 +62,8 @@ jobs:
           if groq_key:
               code, data = list_models(
                   "https://api.groq.com/openai/v1/models",
-                  {"Authorization": "Bearer " + groq_key})
+                  {"Authorization": "Bearer " + groq_key, "Accept": "application/json",
+                   "User-Agent": "AI-Memecoin-Arena-Preflight/1"})
               groq["model_list_http_status"] = code
               groq["error_class"] = reason
               groq["groqcloud_key_format"] = groq_key.startswith("gsk_")
