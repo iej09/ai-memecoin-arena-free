@@ -31,21 +31,30 @@ jobs:
           def list_models(url, headers):
               try:
                   with urlopen(Request(url, headers=headers), timeout=25) as response:
-                      return response.status, json.load(response)
+                      return response.status, json.load(response), "ok"
               except HTTPError as e:
-                  return e.code, {}
+                  try:
+                      raw = e.read(4096).decode("utf-8", "replace")
+                      obj = json.loads(raw)
+                      info = obj.get("error", {})
+                      kind = info.get("type", "")
+                      kind = kind if kind in ("permissions_error", "authentication_error", "invalid_request_error", "rate_limit_error") else "other_json_error"
+                  except Exception:
+                      kind = "non_json_error"
+                  return e.code, {}, kind
               except Exception:
-                  return "network_error", {}
+                  return "network_error", {}, "network_error"
 
           gemini_key = os.getenv("GEMINI_API_KEY", "")
           groq_key = os.getenv("GROQ_API_KEY", "")
           gemini = {"key_present": bool(gemini_key), "model_list_http_status": None, "configured_model_found": False}
           groq = {"key_present": bool(groq_key), "model_list_http_status": None, "gptoss_model_found": False, "qwen_model_found": False}
           if gemini_key:
-              code, data = list_models(
+              code, data, reason = list_models(
                   "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000",
                   {"x-goog-api-key": gemini_key})
               gemini["model_list_http_status"] = code
+              gemini["error_class"] = reason
               names = {m.get("name", "").removeprefix("models/") for m in data.get("models", [])}
               gemini["configured_model_found"] = "gemini-3.8-flash" in names
               gemini["available_flash_models"] = sorted(
@@ -55,6 +64,9 @@ jobs:
                   "https://api.groq.com/openai/v1/models",
                   {"Authorization": "Bearer " + groq_key})
               groq["model_list_http_status"] = code
+              groq["error_class"] = reason
+              groq["groqcloud_key_format"] = groq_key.startswith("gsk_")
+              groq["xai_key_format"] = groq_key.startswith("xai-")
               names = {m.get("id", "") for m in data.get("data", [])}
               groq["gptoss_model_found"] = "openai/gpt-oss-120b" in names
               groq["qwen_model_found"] = "qwen/qwen3.8-27b" in names
