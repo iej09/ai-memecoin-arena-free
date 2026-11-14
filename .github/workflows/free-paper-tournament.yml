@@ -19,7 +19,7 @@ concurrency:
 jobs:
   simulate:
     # Explicit opt-in: zero runs until the owner sets ARENA_ENABLED=true.
-    if: ${{ vars.ARENA_ENABLED == 'true' }}
+    if: ${{ vars.ARENA_ENABLED == 'true' && vars.ARENA_FREE_TIER_VERIFIED == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment:
