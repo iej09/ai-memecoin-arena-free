@@ -101,7 +101,10 @@ def clamp(v: Any, lo: float, hi: float) -> float:
 
 def http_json(method: str, url: str, *, headers=None, params=None, body=None,
               timeout=22) -> Any:
-    r = requests.request(method, url, headers=headers, params=params, json=body,
+    safe_headers = {"Accept": "application/json", "User-Agent": "AI-Memecoin-Arena-Paper/1"}
+    if headers:
+        safe_headers.update(headers)
+    r = requests.request(method, url, headers=safe_headers, params=params, json=body,
                          timeout=timeout)
     r.raise_for_status()
     return r.json()
