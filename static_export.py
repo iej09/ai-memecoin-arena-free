@@ -43,6 +43,6 @@ meta = new_data.get('meta') or {}
 md.extend(["", f"**Market status:** {meta.get('last_market_status', 'not checked')}",
            f"**Last healthy scan:** {meta.get('last_healthy_tick', 'none')}",
            "", "GitHub Actions and data-provider outages may delay this snapshot."])
-Path('STATUS.md').write_text("\\n".join(md) + "\\n", encoding='utf-8')
+Path('STATUS.md').write_text("\n".join(md) + "\n", encoding='utf-8')
 
 print('Exported public static paper-only dashboard in docs/')
