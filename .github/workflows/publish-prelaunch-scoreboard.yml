@@ -1,0 +1,33 @@
+name: Publish read-only prelaunch scoreboard
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-prelaunch-scoreboard.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: paper-arena-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload only public scoreboard assets, no secrets
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs
+          retention-days: 1
+      - name: Deploy read-only dashboard
+        id: deployment
+        uses: actions/deploy-pages@v4
