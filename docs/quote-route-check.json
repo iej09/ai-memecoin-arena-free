@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-11-14T19:51:29+00:00",
+  "tokens_discovered": 89,
+  "screened_candidates": 5,
+  "buy_quotes": 5,
+  "reverse_sell_quotes": 5,
+  "executable_size_roundtrips_within_loss_cap": 5,
+  "tested_purchase_usd": 20,
+  "round_trip_losses_percent": [
+    1.07,
+    1.13,
+    0.83,
+    0.76,
+    0.68
+  ],
+  "no_taker_address": true,
+  "signed_transactions": 0,
+  "trades": 0,
+  "model_calls": 0,
+  "passed": true
+}
