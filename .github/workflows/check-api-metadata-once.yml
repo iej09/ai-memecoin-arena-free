@@ -1,0 +1,83 @@
+name: One-time safe API authentication and model check
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/check-api-metadata-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate keys with read-only model listings, never generate or trade
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError
+
+          def list_models(url, headers):
+              try:
+                  with urlopen(Request(url, headers=headers), timeout=25) as response:
+                      return response.status, json.load(response)
+              except HTTPError as e:
+                  return e.code, {}
+              except Exception:
+                  return "network_error", {}
+
+          gemini_key = os.getenv("GEMINI_API_KEY", "")
+          groq_key = os.getenv("GROQ_API_KEY", "")
+          gemini = {"key_present": bool(gemini_key), "model_list_http_status": None, "configured_model_found": False}
+          groq = {"key_present": bool(groq_key), "model_list_http_status": None, "gptoss_model_found": False, "qwen_model_found": False}
+          if gemini_key:
+              code, data = list_models(
+                  "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000",
+                  {"x-goog-api-key": gemini_key})
+              gemini["model_list_http_status"] = code
+              names = {m.get("name", "").removeprefix("models/") for m in data.get("models", [])}
+              gemini["configured_model_found"] = "gemini-3.8-flash" in names
+              gemini["available_flash_models"] = sorted(
+                  n for n in names if n.startswith("gemini-") and "flash" in n)[:12]
+          if groq_key:
+              code, data = list_models(
+                  "https://api.groq.com/openai/v1/models",
+                  {"Authorization": "Bearer " + groq_key})
+              groq["model_list_http_status"] = code
+              names = {m.get("id", "") for m in data.get("data", [])}
+              groq["gptoss_model_found"] = "openai/gpt-oss-120b" in names
+              groq["qwen_model_found"] = "qwen/qwen3.8-27b" in names
+          report = {
+              "checked_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+              "gemini": gemini,
+              "groq": groq,
+              "model_generation_calls": 0,
+              "trade_orders": 0,
+              "tournament_started_by_this_workflow": False,
+              "disclaimer": "Read-only model metadata checks. Does not verify free billing tier or inference behavior."
+          }
+          Path("docs").mkdir(exist_ok=True)
+          Path("docs/provider-status.json").write_text(json.dumps(report, indent=2) + "\n")
+          print("Read-only model metadata checks complete. No key values, prompts, or trades used.")
+          PY
+      - name: Commit nonsecret authentication summary
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/provider-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: report read-only API provider check'
+            git push origin HEAD:main
+          fi
