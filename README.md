@@ -35,6 +35,14 @@
 
 No X paid API, Birdeye paid API, Helius paid RPC or Bitquery service is called in this edition. You do **not** have complete influencer/social/smart-wallet intelligence in this $0 build. Social links visible on DEX Screener are weaker evidence than full verified social analysis.
 
+## Deployment status as of November 14, 2026
+
+- GitHub code and unit tests are available; the expanded synthetic test suite checks safety and end-of-week exports.
+- A keyless Solana market check found **92 discovered tokens and 10 passing initial safety filters** (a one-time snapshot, not a profit claim).
+- Gemini and Groq API keys authenticated for read-only model-list queries. **This does not confirm free-plan billing or live generation.**
+- The paper tournament is **NOT_STARTED**, and paid providers, X API, Bitquery and all real trading remain disabled.
+- The [GitHub-native status page](STATUS.md) works without GitHub Pages. The visual Pages deployment needs a one-time Pages setup.
+
 ## Launch on a $0 GitHub-hosted schedule (recommended for the free first test)
 
 ### Step 1. Create your free API keys **without adding billing**
@@ -45,29 +53,21 @@ No X paid API, Birdeye paid API, Helius paid RPC or Bitquery service is called i
 
 **Do not paste any key in ChatGPT, GitHub source files, GitHub Issues, or screenshots.** Keys go only into GitHub **repository secrets**.
 
-### Step 2. Create the free cloud repository
+### Step 2. Activate the existing GitHub repository safely
 
-1. Create a **public** GitHub repository named `ai-memecoin-arena-free` (GitHub Free plan).
-2. Extract this ZIP on your own computer.
-3. Upload the **contents** of the `ai_memecoin_arena_free` folder to the **root** of the repository, including the hidden `.github/workflows/free-paper-tournament.yml` file. The easiest Windows route is [GitHub Desktop](https://desktop.github.com/): choose **File > Add local repository > Create a Repository**, pick the extracted folder, then **Publish repository** and leave **Keep this code private** **unchecked**. Alternatively, with Git installed, run in the extracted `ai_memecoin_arena_free` directory:
+Repository: [iej09/ai-memecoin-arena-free](https://github.com/iej09/ai-memecoin-arena-free).
+It already contains the paper-trading engine, tests, and a [GitHub-native scoreboard](STATUS.md).
+GitHub Actions secrets `GEMINI_API_KEY` and `GROQ_API_KEY` are present. A safe, read-only API check confirmed these three model IDs are available: `gemini-3.8-flash`, `openai/gpt-oss-120b`, `qwen/qwen3.8-27b`. **Model inference has NOT been tested and the 7-day competition has NOT started.**
 
-   ```bash
-   git init
-   git add .
-   git commit -m "initial free paper arena"
-   git branch -M main
-   git remote add origin https://github.com/YOUR-USERNAME/ai-memecoin-arena-free.git
-   git push -u origin main
-   ```
+1. Verify in [Google AI Studio](https://aistudio.google.com/) that the Gemini project is explicitly **Free Tier with no linked paid billing**. Verify [GroqCloud](https://console.groq.com/) is on the **Free plan**, with no paid plan/automatic billing. If either is not clearly free, **do not proceed**.
+2. In [GitHub Actions repository variables](https://github.com/iej09/ai-memecoin-arena-free/settings/variables/actions) create `ARENA_FREE_TIER_VERIFIED` with value `true`, **only after checking both providers yourself**. This is a user attestation; the API metadata endpoints cannot reveal your billing plan.
+3. Run [Check free APIs without starting tournament](https://github.com/iej09/ai-memecoin-arena-free/actions/workflows/preflight-only.yml) using **Run workflow**. This sends one small inference request to each of the three models, confirms the structured response and market data, and leaves the 7-day clock off. Stop if it fails. This workflow will **skip** without the verification variable.
+4. If every preflight check passes, create repository variable `ARENA_ENABLED` with value `true`. This is the second switch. Both switches must be on before the scheduled tournament worker can run. The first valid paper tick starts the immutable 168-hour countdown.
+5. For the first tick, manually run [Zero-cost paper trading tournament](https://github.com/iej09/ai-memecoin-arena-free/actions/workflows/free-paper-tournament.yml). The schedule then attempts four ticks per hour (`:11`, `:26`, `:41`, `:56` UTC). Delays or missed jobs are possible; this is **not** a low-latency permanent server.
+6. Track the leaderboard at [STATUS.md](STATUS.md). This Markdown fallback works without GitHub Pages. If you want the richer public visual dashboard, set **Settings > Pages > Source = GitHub Actions**, then set repository variable `ARENA_PAGES_ENABLED=true`. Pages is optional and does not block paper trades.
+7. At the seven-day deadline, the next available tick attempts liquidations, marks unsellable tokens at zero, writes final CSVs, and preserves results in the repo. **Disable the scheduled workflow** in GitHub Actions after the final report so jobs stop.
 
-   Replace `YOUR-USERNAME` with your GitHub username. Do not run the commands with `.env` or real API keys tracked; `.env` is in `.gitignore`.
-4. In GitHub repository **Settings > Secrets and variables > Actions > New repository secret**, save `GEMINI_API_KEY`, `GROQ_API_KEY`, and optionally `JUPITER_API_KEY`.
-5. In **Settings > Pages**, set **Build and deployment > Source = GitHub Actions**. It should not be set to deploy from the `main/docs` branch: automatic commits made with `GITHUB_TOKEN` do not trigger branch-based Pages builds.
-6. In **Settings > Actions > General > Workflow permissions**, permit Actions to write repository contents if your repository policy blocks it. The workflow itself requests only `contents: write`, `pages: write`, and `id-token: write` scopes.
-7. Open the **Actions** tab > **Zero-cost paper trading tournament** > **Run workflow** (on branch `main`). This runs the free-provider and market-data preflight and **one** live-market paper tick. No clock starts until a permitted candidate passes the safety filter.
-8. Once the workflow succeeds, the scheduler will attempt four ticks per hour (`:11`, `:26`, `:41`, `:56` UTC). Its current state is stored as a compressed SQLite snapshot in `state/tournament.sqlite3.gz`, so restarting a GitHub job does **not** reset the balances or deadline. The worker publishes the public scoreboard via a GitHub Pages artifact each run. The Pages URL is shown under **Settings > Pages > Visit site** or in the deployment step.
-9. At the deadline, the next available scheduled tick values or attempts to liquidate all paper positions, marks unsellable positions at zero, and publishes CSVs under the website's `/results/` folder (also committed to `docs/results`). GitHub scheduling delays can make the final quote later than the exact 168-hour boundary: **that timing limitation must be reported with the results**.
-10. After the final report, use **Actions > Zero-cost paper trading tournament > ... > Disable workflow** to stop unnecessary scheduled runs.
+**Important:** The simulator never signs transactions or connects to a real wallet. An AI API key with a linked billing account can still incur usage charges; a repository variable by itself is not a billing guarantee. Never link paid billing just to make a preflight pass. Grok/xAI is **not** included in this free edition.
 
 **Privacy note:** A public repository and Pages site expose your simulated holdings, token picks and trades to everyone. The provider secrets remain secret unless you intentionally reveal them or modify the workflow to print them. Do not put any personal information into paper-trading notes.
 
