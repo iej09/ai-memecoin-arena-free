@@ -1,0 +1,11 @@
+{
+  "time_utc": "2026-11-14T19:39:41+00:00",
+  "key_present": true,
+  "resembles_groqcloud_key": true,
+  "resembles_xai_grok_key": false,
+  "model_listing_status": 200,
+  "error_type": "none",
+  "error_body_format": "json",
+  "inference_requests": 0,
+  "trades": 0
+}
