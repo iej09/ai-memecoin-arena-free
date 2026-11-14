@@ -1,0 +1,66 @@
+{
+  "status":"NOT_STARTED",
+  "meta":{},
+  "scoreboard":[
+    {
+      "agent":"gemini_free",
+      "name":"Gemini Flash (Free)",
+      "nav_cad":1000.0,
+      "pnl_cad":0.0,
+      "return_pct":0.0,
+      "cash_usd":1000.0,
+      "exposure_pct":0.0,
+      "unsellable":0,
+      "holdings":[]
+    },
+    {
+      "agent":"groq_gptoss",
+      "name":"GPT-OSS 120B (Groq Free)",
+      "nav_cad":1000.0,
+      "pnl_cad":0.0,
+      "return_pct":0.0,
+      "cash_usd":1000.0,
+      "exposure_pct":0.0,
+      "unsellable":0,
+      "holdings":[]
+    },
+    {
+      "agent":"groq_qwen",
+      "name":"Qwen 3.8 27B (Groq Free)",
+      "nav_cad":1000.0,
+      "pnl_cad":0.0,
+      "return_pct":0.0,
+      "cash_usd":1000.0,
+      "exposure_pct":0.0,
+      "unsellable":0,
+      "holdings":[]
+    },
+    {
+      "agent":"momentum_baseline",
+      "name":"Momentum Control",
+      "nav_cad":1000.0,
+      "pnl_cad":0.0,
+      "return_pct":0.0,
+      "cash_usd":1000.0,
+      "exposure_pct":0.0,
+      "unsellable":0,
+      "holdings":[]
+    }
+  ],
+  "trades":[],
+  "decisions":[],
+  "research":[],
+  "history":{
+    "gemini_free":[],
+    "groq_gptoss":[],
+    "groq_qwen":[],
+    "momentum_baseline":[]
+  },
+  "total_trades":0,
+  "asof_utc":"2026-11-10T21:01:33.005493+00:00",
+  "next_required":[
+    "Connect model API keys",
+    "Validate market data",
+    "Start the worker"
+  ]
+}

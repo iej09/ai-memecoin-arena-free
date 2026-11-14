@@ -1,0 +1,26 @@
+services:
+  worker:
+    build: .
+    env_file: .env
+    environment:
+      DB_PATH: /app/runtime/tournament.sqlite3
+      RESULTS_DIR: /app/runtime/results
+      INTERVAL_SECONDS: 900
+      DECISION_EVERY: 4
+    volumes:
+      - arena_runtime:/app/runtime
+    restart: unless-stopped
+    command: ["python", "tournament.py"]
+  dashboard:
+    build: .
+    environment:
+      DB_PATH: /app/runtime/tournament.sqlite3
+      INTERVAL_SECONDS: 900
+    volumes:
+      - arena_runtime:/app/runtime:ro
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8787:8787"
+    command: ["uvicorn", "dashboard:app", "--host", "0.0.0.0", "--port", "8787"]
+volumes:
+  arena_runtime:

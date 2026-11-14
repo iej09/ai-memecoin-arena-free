@@ -1,0 +1,79 @@
+name: Zero-cost paper trading tournament
+
+# Public repository + standard GitHub-hosted Ubuntu runner: free under GitHub's
+# published public-repository pricing. Schedules can run late or be skipped.
+on:
+  schedule:
+    - cron: '11,26,41,56 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: paper-arena-state
+  cancel-in-progress: false
+
+jobs:
+  simulate:
+    # Explicit opt-in: zero runs until the owner sets ARENA_ENABLED=true.
+    if: ${{ vars.ARENA_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      DB_PATH: state/tournament.sqlite3
+      RESULTS_DIR: results
+      INTERVAL_SECONDS: '900'
+      DECISION_EVERY: '4'
+      MAX_LLM_CALLS_PER_24H: '48'
+      EAGER_X: '0'
+      # THESE MUST COME FROM GITHUB SECRETS; NEVER COMMIT REAL VALUES.
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      JUPITER_API_KEY: ${{ secrets.JUPITER_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          ref: main  # Always load the current saved ledger, not a queued stale SHA.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install open-source dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Restore the original simulated portfolio and deadline
+        run: python state_tools.py restore
+      - name: Free API preflight (refreshes when needed, does not start clock)
+        run: python preflight.py
+      - name: Run exactly one PAPER-ONLY tick
+        run: python tournament.py --once
+      - name: Publish a public and read-only scoreboard
+        run: python static_export.py
+      - name: Save database snapshot for the next job
+        run: python state_tools.py save
+      - name: Commit public results and state (never secrets)
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add state/tournament.sqlite3.gz docs/index.html docs/data.json docs/.nojekyll
+          if [ -d docs/results ]; then git add docs/results/*.csv; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'paper tick: update scoreboard and ledger'
+            git push origin HEAD:main
+          fi
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload only public website data
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs
+          retention-days: 1  # Minimal artifact storage on GitHub Free.
+      - name: Deploy the updated scoreboard
+        id: deployment
+        uses: actions/deploy-pages@v4
