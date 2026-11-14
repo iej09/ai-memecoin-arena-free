@@ -5,6 +5,7 @@ permissions:
   contents: read
 jobs:
   verify:
+    if: ${{ vars.ARENA_FREE_TIER_VERIFIED == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
