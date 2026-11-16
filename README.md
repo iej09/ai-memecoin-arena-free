@@ -2,7 +2,7 @@
 
 # AI Memecoin Arena: **$0 API / $0 hosting** paper-only pilot
 
-**Goal:** Compare three AI models and a deterministic benchmark on **live Solana market data** over a 7-day paper-trading window. Each starts with **CAD $1,000 virtual cash**, may commit up to **75% of marked equity**, and is never allowed to place a real on-chain transaction. The rules include a 25%-per-token limit, simulated adverse fills, and cash-out at the deadline. Models are judged on *realistically liquidatable* paper account value, not token price screenshots.
+**Goal:** Compare three AI models and a deterministic benchmark on **live Solana market data** over a 7-day paper-trading window. Each starts with **CAD $1,000 virtual cash**, may commit up to **100% of marked equity**, and is never allowed to place a real on-chain transaction. The rules allow 100% exposure in a single coin or across multiple coins, with simulated adverse fills, upfront network costs, no borrowing, and cash-out at the deadline. Models are judged on *realistically liquidatable* paper account value, not token price screenshots.
 
 **IMPORTANT:** This is the **free edition**, replacing the earlier paid-provider starter. The OpenAI and Anthropic hosted commercial models are **not in the free trial**. The tool uses no real wallet, brokerage login, exchange API, private key, seed phrase, paid social monitoring or cloud subscription. The free-tier AI models **are not GPT-6 or Claude**. A positive result would not establish that the original GPT-6/Claude competition would have won.
 
@@ -92,7 +92,7 @@ A local always-on test uses `.env.example` copied to `.env` with **only free** G
 ## Risk/strategy rules and honest limits
 
 - The four virtual accounts begin at CAD $1,000 using the first available CAD/USD reference rate; accounting continues in synthetic USDC/USD and reports CAD at subsequent daily FX rates.
-- A strategy can invest **at most 75% of liquidatable equity** overall; new purchases have 73% headroom and no individual token can exceed 25% of equity. New buys require positive buy **and** reverse sell quotes, adequate liquidity, token authority restrictions and risk screening.
+- A strategy may invest **up to 100% of available simulated cash**, including in one coin, with no portfolio or per-token reserve requirement. Fees and network cost are paid from the virtual balance first, so truly all-in leaves roughly zero uncommitted cash, never debt. Staying in cash remains optional. New buys require positive buy **and** reverse sell quotes, adequate liquidity, token authority restrictions and risk screening.
 - At purchase, the engine applies a modeled 0.5% adverse execution haircut and virtual $0.03 network cost, with another haircut on selling. This **understates** possible catastrophic slippage on very illiquid tokens and can be optimistic. A last price is not accepted as exit value.
 - The same candidate feed goes to each AI. Each can ask for one additional bounded DEX Screener / keyless RugCheck research pass per decision (a second AI request consumes more of its free quota). Provider failures are recorded as failures/HOLD, never made-up positive signals.
 - Default token risk checks use Jupiter token metadata and audits. Such checks are **not guarantees** against insider distribution, malicious contracts, MEV or exit liquidity disappearing.
