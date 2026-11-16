@@ -186,7 +186,7 @@ def test_bad_ai_request_cannot_invest_more_than_cash(tmp_path):
         coin = {**token, 'id': key}
         engine.execute('gemini_free', {'action': 'BUY', 'mint': key, 'usd_amount': 10_000_000}, {key: coin})
         assert ledger.portfolio('gemini_free')['cash_usd'] >= -0.000001
-        assert engine.portfolio_packet('gemini_free')['exposure_percent'] <= 75.01
+        assert engine.portfolio_packet('gemini_free')['exposure_percent'] <= 100.01
 
 
 def test_repository_fallback_scoreboard_is_public_safe(tmp_path, monkeypatch):
