@@ -214,3 +214,21 @@ def test_gemini_uses_supported_json_schema_response_configuration(monkeypatch):
     assert config["responseJsonSchema"] == a.DECISION_SCHEMA
     assert "responseSchema" not in config
 
+
+
+def test_all_in_can_stay_invested_above_old_75_percent_limit(tmp_path):
+    class Market:
+        def quote(self, im, om, amt):
+            return amt * 2 if im == a.USDC else amt // 2
+    ledger = a.Ledger(tmp_path / "all-in-risk.sqlite3")
+    ledger.initialize(1.4)
+    engine = a.Engine(ledger, Market())
+    token = tok("A" * 32)
+    ok, msg = engine.execute(
+        "groq_gptoss", {"action":"BUY", "mint":token["id"], "usd_amount": 1_000_000},
+        {token["id"]:token})
+    assert ok, msg
+    assert engine.portfolio_packet("groq_gptoss")["exposure_percent"] > 99.9
+    engine.risk_controls("groq_gptoss")
+    assert engine.portfolio_packet("groq_gptoss")["exposure_percent"] > 99.9
+    assert ledger.portfolio("groq_gptoss")["cash_usd"] >= 0
