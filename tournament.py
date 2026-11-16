@@ -319,7 +319,7 @@ def llm_decision(provider: str, packet: dict) -> dict:
             body={"systemInstruction": {"parts": [{"text": SYSTEM}]},
                   "contents": [{"role": "user", "parts": [{"text": payload}]}],
                   "generationConfig": {"responseMimeType": "application/json",
-                                       "responseSchema": DECISION_SCHEMA,
+                                       "responseJsonSchema": DECISION_SCHEMA,
                                        "maxOutputTokens": 1000, "temperature": 0.25}}, timeout=60)
         text = "".join(part.get("text", "") for c in obj.get("candidates", [])
                        for part in (c.get("content") or {}).get("parts", []))
