@@ -199,3 +199,18 @@ def test_repository_fallback_scoreboard_is_public_safe(tmp_path, monkeypatch):
     assert "NOT_STARTED" in status
     assert "\n" in status
     assert "GEMINI_API_KEY" not in status and "GROQ_API_KEY" not in status
+
+
+def test_gemini_uses_supported_json_schema_response_configuration(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "unit-test-not-a-key")
+    sent = {}
+    def mock_request(method, url, **kwargs):
+        sent.update({"method": method, "url": url, **kwargs})
+        return {"candidates": [{"content": {"parts": [{"text": '{"action":"HOLD","mint":"","usd_amount":0,"research_type":"ALL","reason":"test"}'}]}}]}
+    monkeypatch.setattr(a, "http_json", mock_request)
+    assert a.llm_decision("gemini_free", {"candidates": []})["action"] == "HOLD"
+    config = sent["body"]["generationConfig"]
+    assert config["responseMimeType"] == "application/json"
+    assert config["responseJsonSchema"] == a.DECISION_SCHEMA
+    assert "responseSchema" not in config
+
