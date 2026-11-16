@@ -234,3 +234,27 @@ def test_all_in_can_stay_invested_above_old_75_percent_limit(tmp_path):
     engine.risk_controls("groq_gptoss")
     assert engine.portfolio_packet("groq_gptoss")["exposure_percent"] > 99.9
     assert ledger.portfolio("groq_gptoss")["cash_usd"] >= 0
+
+
+def test_preflight_checks_all_agents_and_does_not_start_if_one_provider_fails(tmp_path, monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "mock-free-key")
+    monkeypatch.setenv("GROQ_API_KEY", "mock-free-key")
+    monkeypatch.setattr(a, "DB_PATH", tmp_path / "preflight.db")
+    monkeypatch.setattr(a, "fx_cad_per_usd", lambda: 1.4)
+    class PublicMarket:
+        def discover(self):
+            return [tok("A" * 32)]
+    monkeypatch.setattr(a, "Jupiter", lambda: PublicMarket())
+    seen = []
+    def fake_model(provider, packet):
+        seen.append(provider)
+        if provider == "gemini_free":
+            raise RuntimeError("mock provider outage")
+        return {"action": "HOLD", "mint": "", "reason": "mock ok"}
+    monkeypatch.setattr(a, "llm_decision", fake_model)
+    monkeypatch.setattr(a.sys, "argv", ["tournament.py", "--check"])
+    with pytest.raises(RuntimeError, match="Preflight failed for: gemini_free"):
+        a.main()
+    assert seen == list(a.MODELS)
+    ledger = a.Ledger(tmp_path / "preflight.db")
+    assert ledger.meta("started_at") is None
