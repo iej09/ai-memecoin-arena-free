@@ -34,9 +34,8 @@ START_CAD = 1000.0
 DAYS = 7
 INTERVAL_SECONDS = max(30, int(os.getenv("INTERVAL_SECONDS", "900")))
 DECISION_EVERY = max(1, int(os.getenv("DECISION_EVERY", "4")))  # hourly AI cycles on 15-min schedule
-MAX_EXPOSURE = 0.75
-BUY_HEADROOM = 0.73  # buffer for fees and price changes
-MAX_TOKEN_EXPOSURE = 0.25
+MAX_EXPOSURE = 1.0  # paper-only: all available balance, no borrowing
+MAX_TOKEN_EXPOSURE = 1.0  # a single token may receive all paper capital
 MAX_CANDIDATES = 8  # Identical shortlist for ALL models and the benchmark.
 MAX_ROUND_TRIP_LOSS = float(os.getenv("MAX_ROUND_TRIP_LOSS", "0.18"))
 MAX_LLM_CALLS_PER_24H = int(os.getenv("MAX_LLM_CALLS_PER_24H", "48"))
@@ -68,7 +67,8 @@ If research_remaining is true, you may choose RESEARCH for ONE candidate; you th
 receive additional evidence and must issue a final BUY/SELL/HOLD decision.
 If research_remaining is false, do not request RESEARCH again.
 Only BUY mints in the candidates list. Only SELL a mint you hold; SELL closes it entirely.
-Maximum exposure is enforced by code: 75% portfolio total; max 25% per token.
+Maximum exposure is enforced by code: 100% of paper equity across tokens or in one token.
+No leverage, negative cash, or additional deposits; gas and execution costs still apply.
 Never claim that an approximate/quote-only fill was an actual on-chain execution.
 If nothing is compelling, HOLD. DO NOT output markdown."""
 
@@ -564,24 +564,13 @@ class Engine:
         return True
 
     def risk_controls(self, agent: str):
-        # Hard loss exit and forced exposure rebalancing, identical for all agents.
+        # Keep the loss stop, but do not liquidate just because cash reserves reach zero.
+        # In a paper-only contest, a bot may choose 100% long exposure. No leverage.
         p = self.portfolio_packet(agent)
         for h in p["holdings"]:
             if h["route_available"] and h["cost_usd"] > 0 and \
                h["liquidation_value_usd"] < 0.65 * h["cost_usd"]:
                 self.sell(agent, h["mint"], note="hard -35% drawdown stop")
-        p = self.portfolio_packet(agent)
-        for _ in range(6):
-            if p["exposure_percent"] <= 75.00001 or not p["holdings"]:
-                break
-            worst = max(p["holdings"], key=lambda h: h["liquidation_value_usd"])
-            if worst["liquidation_value_usd"] <= 0:
-                break
-            excess = max(0., p["exposure_usd"] - .72 * p["equity_usd"])
-            part = min(1., max(.01, excess / worst["liquidation_value_usd"] * 1.1))
-            if not self.sell(agent, worst["mint"], part, "mandatory 75% exposure cap"):
-                break
-            p = self.portfolio_packet(agent)
 
     def execute(self, agent: str, decision: dict, candidates: dict[str, dict]) -> tuple[bool, str]:
         if time.time() >= float(self.L.meta("deadline", float("inf"))):
@@ -600,14 +589,17 @@ class Engine:
         usd = clamp(decision.get("usd_amount", 0), 0., 1e7)
         old_value = next((h["liquidation_value_usd"] for h in p["holdings"]
                           if h["mint"] == mint), 0.)
-        # Conservative: a temporarily unroutable coin still counts as invested capital.
-        committed = max(p["exposure_usd"], sum(h["cost_usd"] for h in p["holdings"]))
-        capacity = min(p["cash_usd"] - GAS_USD,
-                       BUY_HEADROOM * p["equity_usd"] - committed,
-                       MAX_TOKEN_EXPOSURE * p["equity_usd"] - old_value)
+        # Use the UNROUNDED ledger cash for an all-in paper buy. Deduct the
+        # simulated gas fee upfront; a 100% allocation must not create debt.
+        cash_budget = max(0.0, self.L.portfolio(agent)["cash_usd"] - GAS_USD)
+        capacity = max(0.0, min(
+            cash_budget,
+            MAX_EXPOSURE * p["equity_usd"] - p["exposure_usd"],
+            MAX_TOKEN_EXPOSURE * p["equity_usd"] - old_value,
+        ))
         spend = min(usd, capacity)
         if spend < MIN_ORDER_USD:
-            return False, "buy rejected: cash, 73% entry buffer or 25% token cap"
+            return False, "buy rejected: insufficient cash after fees or 100% exposure cap"
         # Pull a fresh Jupiter quote AFTER the AI has returned its decision.
         out = self.M.quote(USDC, mint, int(spend * 1e6))
         if out is None:
