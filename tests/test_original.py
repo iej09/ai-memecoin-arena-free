@@ -78,15 +78,35 @@ def test_buy_sell_paper_only_and_cash_never_negative(running):
     assert len(m.queries) >= 3
 
 
-def test_75_percent_portfolio_cap(running):
+def test_100_percent_paper_cap_allows_all_in_without_negative_cash(running):
     ledger, _, engine = running
-    mints = [chr(65+i) * 32 for i in range(5)]
-    for mint in mints:
+    mint = "A" * 32
+    t = token(mint)
+    ok, msg = engine.execute(
+        "gemini_free",
+        {"action": "BUY", "mint": mint, "usd_amount": 10000}, {mint: t})
+    assert ok, msg
+    engine.risk_controls("gemini_free")
+    packet = engine.portfolio_packet("gemini_free")
+    assert 99.9 <= packet["exposure_percent"] <= 100.0
+    assert 0 <= ledger.portfolio("gemini_free")["cash_usd"] < 0.0001
+    assert len(packet["holdings"]) == 1
+    # Even with zero remaining uncommitted cash, exiting can be simulated.
+    ok, msg = engine.execute("gemini_free", {"action": "SELL", "mint": mint}, {})
+    assert ok, msg
+    assert ledger.portfolio("gemini_free")["holdings"] == []
+    assert ledger.portfolio("gemini_free")["cash_usd"] > 0
+
+
+def test_multiple_all_in_attempts_never_borrow(running):
+    ledger, _, engine = running
+    for mint in [chr(65+i) * 32 for i in range(5)]:
         t = token(mint)
-        engine.execute("gemini_free", {"action": "BUY", "mint": mint, "usd_amount": 10000}, {mint: t})
+        engine.execute("gemini_free", {"action": "BUY", "mint": mint, "usd_amount": 10000},
+                       {mint: t})
         engine.risk_controls("gemini_free")
-        assert engine.portfolio_packet("gemini_free")["exposure_percent"] <= 75.001
-    assert ledger.portfolio("gemini_free")["cash_usd"] >= 0
+        assert 0 <= engine.portfolio_packet("gemini_free")["exposure_percent"] <= 100.0
+        assert ledger.portfolio("gemini_free")["cash_usd"] >= 0
 
 
 def test_no_buy_without_reverse_sell_route(running):
@@ -225,5 +245,5 @@ def test_full_free_engine_tick_uses_only_simulated_trades(tmp_path, monkeypatch)
     assert ledger.db.execute("SELECT COUNT(*) FROM decisions").fetchone()[0] == 4
     assert ledger.db.execute("SELECT COUNT(*) FROM trades WHERE agent='momentum_baseline'").fetchone()[0] == 1
     for agent in arena.AGENTS:
-        assert engine.portfolio_packet(agent)["exposure_percent"] <= 75.0
+        assert engine.portfolio_packet(agent)["exposure_percent"] <= 100.0
     # The Gemini/Groq agents held; this test makes no provider or wallet transaction.
