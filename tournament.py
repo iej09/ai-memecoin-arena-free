@@ -830,11 +830,20 @@ def main():
                       "equity_usd": 100, "holdings": []}, "candidates": [],
                       "research_remaining": False,
                       "test_only": "Return HOLD. This is a connectivity test. No trades."}
+            failures = []
             for agent in MODELS:
-                result = llm_decision(agent, packet)
-                print("MODEL CHECK", agent, str(result)[:150])
-                if result.get("action") != "HOLD":
-                    raise RuntimeError(agent + " failed HOLD-only connectivity test")
+                try:
+                    result = llm_decision(agent, packet)
+                    if result.get("action") != "HOLD":
+                        raise ValueError("unexpected decision instead of HOLD")
+                    print("MODEL CHECK PASS", agent, flush=True)
+                except Exception as exc:
+                    # Test the remaining providers even if one service is unavailable.
+                    failures.append(agent)
+                    print("MODEL CHECK FAILED", agent, type(exc).__name__, flush=True)
+            if failures:
+                raise RuntimeError("Preflight failed for: " + ", ".join(failures) +
+                                   "; the tournament has NOT started")
         if args.check:
             db.set_meta("preflight_passed_at", time.time())
             db.set_meta("preflight_models", {k: os.getenv(v[1]) or v[2]
