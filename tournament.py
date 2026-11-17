@@ -736,7 +736,11 @@ class Engine:
         iteration = int(self.L.meta("iteration", 0))
         for agent in AGENTS:
             self.risk_controls(agent)
-        if candidates and iteration % DECISION_EVERY == 0:
+        # Scheduled GitHub jobs can be delayed/skipped. Use elapsed wall-clock time
+        # rather than a fixed number of successful ticks to schedule model decisions.
+        decision_interval = DECISION_EVERY * INTERVAL_SECONDS
+        prior_round = float(self.L.meta("last_ai_round_at", 0) or 0)
+        if candidates and (not prior_round or time.time() - prior_round >= decision_interval):
             for agent in AGENTS:
                 p = self.portfolio_packet(agent)
                 packet = {"timestamp_utc": stamp(), "time_remaining_hours":
@@ -778,6 +782,7 @@ class Engine:
                 self.L.decision(agent, decision, accepted, detail, packet)
                 self.risk_controls(agent)
                 print(stamp(), agent, decision.get("action"), accepted, detail, flush=True)
+            self.L.set_meta("last_ai_round_at", time.time())
         for agent in AGENTS:
             p = self.portfolio_packet(agent)
             self.L.snapshot(agent, p["cash_usd"], p["exposure_usd"], fx,
