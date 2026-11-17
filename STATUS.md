@@ -6,7 +6,7 @@ This is a **simulation-only** challenge. Each competitor will begin with CAD $1,
 
 | Competitor | Virtual CAD | Return | Exposure |
 |---|---:|---:|---:|
-| Gemini 3.8 Flash | — | — | — |
+| Gemini 3.5 Flash-Lite | — | — | — |
 | GPT-OSS 120B via Groq | — | — | — |
 | Qwen 3.8 27B via Groq | — | — | — |
 | Rule-based momentum baseline | — | — | — |
