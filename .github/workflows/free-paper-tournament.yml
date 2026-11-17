@@ -5,6 +5,10 @@ name: Zero-cost paper trading tournament
 on:
   schedule:
     - cron: '11,26,41,56 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/free-paper-tournament.yml'
   workflow_dispatch:
 
 permissions:
@@ -18,8 +22,9 @@ concurrency:
 
 jobs:
   simulate:
-    # Explicit opt-in: zero runs until the owner sets ARENA_ENABLED=true.
-    if: ${{ vars.ARENA_ENABLED == 'true' && vars.ARENA_FREE_TIER_VERIFIED == 'true' }}
+    # The owner authorized launch on Nov 16; still require explicit free-tier verification.
+    # Changing this workflow triggers one kickoff tick, and cron continues future ticks.
+    if: ${{ vars.ARENA_FREE_TIER_VERIFIED == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment:
