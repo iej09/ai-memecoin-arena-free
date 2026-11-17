@@ -72,6 +72,31 @@ jobs:
         run: python tournament.py --once
       - name: Publish a public and read-only scoreboard
         run: python static_export.py
+      - name: Show paper portfolios in the GitHub Actions run
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          state = json.loads(Path("docs/data.json").read_text())
+          meta = state.get("meta") or {}
+          deadline = meta.get("deadline")
+          deadline_text = (datetime.fromtimestamp(float(deadline), timezone.utc).isoformat()
+                           if deadline else "not started")
+          lines = ["## Live paper-only portfolios", "",
+                   "Original deadline (UTC): **" + deadline_text + "**", "",
+                   "| Bot | Virtual CAD | Exposure | Paper holdings | Last AI decision |",
+                   "|---|---:|---:|---|---|"]
+          for p in state.get("scoreboard", []):
+              holdings = ", ".join(str(h.get("symbol", "?")) for h in p.get("holdings", [])) or "Cash"
+              decision = ("API ERROR" if p.get("last_decision_health") == "API_ERROR"
+                          else p.get("last_decision", "PENDING"))
+              lines.append("| {} | {:.2f} | {:.1f}% | {} | {} |".format(
+                  p.get("name", "?"), float(p.get("nav_cad", 0)),
+                  float(p.get("exposure_pct", 0)), holdings, decision))
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as out:
+              out.write("\n".join(lines) + "\n")
+          PY
       - name: Save database snapshot for the next job
         run: python state_tools.py save
       - name: Commit public results and state (never secrets)
