@@ -57,6 +57,8 @@ jobs:
               gemini["error_class"] = reason
               names = {m.get("name", "").removeprefix("models/") for m in data.get("models", [])}
               gemini["configured_model_found"] = "gemini-3.8-flash" in names
+              gemini["fallback_3_5_flash_lite_available"] = "gemini-3.5-flash-lite" in names
+              gemini["fallback_2_5_flash_lite_available"] = "gemini-2.5-flash-lite" in names
               gemini["available_flash_models"] = sorted(
                   n for n in names if n.startswith("gemini-") and "flash" in n)[:12]
           if groq_key:
