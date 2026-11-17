@@ -297,3 +297,25 @@ def test_live_candidate_packet_reduces_free_tier_token_cost():
     assert all("unimportant" not in x["stats5m"] for x in result["candidates"])
     assert all(len(x["name"]) <= 70 for x in result["candidates"])
     assert len(json.dumps(result)) < 7000
+
+
+def test_public_scoreboard_flags_groq_api_error_separately_from_hold(tmp_path, monkeypatch):
+    import runpy
+    import dashboard
+    ledger = a.Ledger(tmp_path / "health.sqlite3")
+    ledger.initialize(1.4)
+    ledger.decision("groq_gptoss", {"action": "HOLD", "reason": "API failure"},
+                    False, "429 Client Error: Too Many Requests", {"candidates": []})
+    for agent in a.AGENTS:
+        ledger.snapshot(agent, 1000/1.4, 0, 1.4, 0)
+    ledger.db.close()
+    monkeypatch.setattr(dashboard, "DB", tmp_path / "health.sqlite3")
+    state = dashboard.data()
+    gptoss = next(x for x in state["scoreboard"] if x["agent"] == "groq_gptoss")
+    assert gptoss["last_decision_health"] == "API_ERROR"
+    assert gptoss["last_decision"] == "HOLD"
+    gemini = next(x for x in state["scoreboard"] if x["agent"] == "gemini_free")
+    assert gemini["last_decision_health"] == "PENDING"
+    monkeypatch.chdir(tmp_path)
+    runpy.run_module("static_export", run_name="__main__")
+    assert "API ERROR" in (tmp_path / "STATUS.md").read_text()
