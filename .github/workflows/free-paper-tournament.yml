@@ -111,16 +111,32 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+      - name: Detect whether owner enabled GitHub Pages
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          status=$(curl -sS -L -o /dev/null -w '%{http_code}' --max-time 15 \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")
+          if [ "$status" = '200' ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'Pages not yet enabled; GitHub STATUS.md still publishes portfolios'
+          fi
       - name: Configure GitHub Pages
-        if: ${{ vars.ARENA_PAGES_ENABLED == 'true' }}
+        if: ${{ steps.pages.outputs.enabled == 'true' }}
         uses: actions/configure-pages@v5
       - name: Upload only public website data
-        if: ${{ vars.ARENA_PAGES_ENABLED == 'true' }}
+        if: ${{ steps.pages.outputs.enabled == 'true' }}
         uses: actions/upload-pages-artifact@v4
         with:
           path: docs
           retention-days: 1  # Minimal artifact storage on GitHub Free.
       - name: Deploy the updated scoreboard
-        if: ${{ vars.ARENA_PAGES_ENABLED == 'true' }}
+        if: ${{ steps.pages.outputs.enabled == 'true' }}
         id: deployment
         uses: actions/deploy-pages@v4
