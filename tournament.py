@@ -49,7 +49,7 @@ MIN_ORGANIC_SCORE = float(os.getenv("MIN_ORGANIC_SCORE", "15"))
 # Users MUST keep Gemini and Groq accounts on their provider FREE tiers.
 FREE_MODE = True
 MODELS = {
-    "gemini_free": ("GEMINI_API_KEY", "GEMINI_MODEL", "gemini-3.8-flash"),
+    "gemini_free": ("GEMINI_API_KEY", "GEMINI_MODEL", "gemini-3.5-flash-lite"),
     "groq_gptoss": ("GROQ_API_KEY", "GROQ_GPT_MODEL", "openai/gpt-oss-120b"),
     "groq_qwen": ("GROQ_API_KEY", "GROQ_QWEN_MODEL", "qwen/qwen3.8-27b"),
 }
@@ -320,7 +320,7 @@ def llm_decision(provider: str, packet: dict) -> dict:
                   "contents": [{"role": "user", "parts": [{"text": payload}]}],
                   "generationConfig": {"responseMimeType": "application/json",
                                        "responseJsonSchema": DECISION_SCHEMA,
-                                       "thinkingConfig": {"thinkingLevel": "LOW"},
+                                       "thinkingConfig": {"thinkingLevel": "MINIMAL"},
                                        "maxOutputTokens": 1000}}, timeout=90)
         text = "".join(part.get("text", "") for c in obj.get("candidates", [])
                        for part in (c.get("content") or {}).get("parts", []))
