@@ -1,0 +1,79 @@
+name: Diagnose one Groq full-packet model request (paper-only)
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/diagnose-groq-live-once.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    if: ${{ vars.ARENA_FREE_TIER_VERIFIED == 'true' }}
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Diagnose exactly one model call without starting or editing tournament state
+        run: |
+          python - <<'PY'
+          import json, re
+          from datetime import datetime, timezone
+          from pathlib import Path
+          import requests
+          import tournament as a
+          data=json.loads(Path("docs/data.json").read_text())
+          coins=[]
+          for t in data.get("research", [])[:8]:
+              coins.append({"id":t.get("mint"),"name":t.get("name"),
+                            "symbol":t.get("symbol"),"organicScore":t.get("organic_score"),
+                            "liquidity":t.get("liquidity_usd"),"usdPrice":t.get("price_usd"),
+                            "audit":t.get("audit"),"stats5m":{"priceChange":t.get("momentum_5m")},
+                            "stats1h":{"priceChange":0}})
+          packet={"timestamp_utc":datetime.now(timezone.utc).isoformat(),
+                  "time_remaining_hours":160,
+                  "portfolio":{"equity_usd":700,"cash_usd":700,"holdings":[]},
+                  "candidates":coins,"research_remaining":True,
+                  "signal_availability":{"x":False,"fomo_onchain":False},
+                  "execution":"Simulated quotes only"}
+          output={"model":"openai/gpt-oss-120b","api_request_count":1,
+                  "real_trades":0,"tournament_clock_modified":False,
+                  "status":"unavailable","http_status":None,"error_type":None,
+                  "error_summary":None,"packet_characters":len(json.dumps(a.compact_free_packet(packet)))}
+          try:
+              result=a.llm_decision("groq_gptoss",packet)
+              output["status"]="ok"
+              output["response_action"]=result.get("action")
+          except requests.HTTPError as exc:
+              output["status"]="api_error"
+              output["http_status"]=getattr(exc.response,"status_code",None)
+              try:
+                  err=exc.response.json().get("error",{})
+                  raw=str(err.get("message",""))
+                  raw=re.sub(r"(gsk_|xai-|AIza)[A-Za-z0-9_\\-]+","[redacted]",raw)
+                  raw=re.sub(r"[A-Za-z0-9_\\-]{60,}","[redacted]",raw)
+                  output["error_type"]=str(err.get("type",""))[:70]
+                  output["error_summary"]=raw[:360]
+              except Exception:
+                  output["error_summary"]="Unparseable provider response"
+          except Exception as exc:
+              output["status"]="client_error"
+              output["error_type"]=type(exc).__name__
+          Path("docs/groq-live-diagnostic.json").write_text(json.dumps(output,indent=2)+"\n")
+          print("Groq diagnostic status:",output["status"],"HTTP",output["http_status"])
+          PY
+      - name: Store sanitized diagnostic
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/groq-live-diagnostic.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: log sanitized full-packet Groq diagnostic'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
