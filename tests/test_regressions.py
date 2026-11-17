@@ -348,3 +348,39 @@ def test_clock_based_ai_cadence_survives_skipped_github_runs(tmp_path, monkeypat
     assert len(calls) == 2 * len(a.MODELS)
     assert ledger.meta("started_at") == original_start
     assert ledger.meta("deadline") == original_start + 7*86400
+
+
+def test_gptoss_400_strict_decoding_falls_back_to_validated_json(monkeypatch):
+    import requests
+    monkeypatch.setenv("GROQ_API_KEY", "mock-free-key")
+    error = requests.Response()
+    error.status_code = 400
+    calls = []
+    def mock_http(method, url, **kwargs):
+        calls.append(kwargs["body"])
+        if len(calls) == 1:
+            raise requests.HTTPError("400 Bad Request", response=error)
+        return {"choices": [{"message": {"content":
+            '{"action":"HOLD","mint":"","usd_amount":0,"research_type":"ALL","reason":"ok"}'}}]}
+    monkeypatch.setattr(a, "http_json", mock_http)
+    assert a.llm_decision("groq_gptoss", {"candidates": []})["action"] == "HOLD"
+    assert len(calls) == 2
+    assert calls[0]["response_format"]["type"] == "json_schema"
+    assert calls[1]["response_format"]["type"] == "json_object"
+    assert calls[1]["reasoning_effort"] == "low"
+
+
+def test_gptoss_fallback_rejects_invalid_action(monkeypatch):
+    import requests
+    monkeypatch.setenv("GROQ_API_KEY", "mock-free-key")
+    error = requests.Response()
+    error.status_code = 400
+    count = [0]
+    def mock_http(method, url, **kwargs):
+        count[0] += 1
+        if count[0] == 1:
+            raise requests.HTTPError("400", response=error)
+        return {"choices": [{"message": {"content": '{"action":"SEND_REAL_MONEY"}'}}]}
+    monkeypatch.setattr(a, "http_json", mock_http)
+    with pytest.raises(ValueError, match="Invalid action"):
+        a.llm_decision("groq_gptoss", {"candidates": []})
