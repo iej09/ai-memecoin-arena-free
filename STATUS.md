@@ -1,16 +1,18 @@
 # AI Memecoin Arena — read-only status
 
-**Status: NOT_STARTED**
+This is a **paper-only** simulation; no real crypto orders are sent.
 
-This is a **simulation-only** challenge. Each competitor will begin with CAD $1,000 in virtual capital. No real crypto orders, exchange wallets, or deposits are permitted.
+**Status:** LIVE
+**As of (UTC):** 2026-11-17T00:04:02.725421+00:00
 
 | Competitor | Virtual CAD | Return | Exposure |
 |---|---:|---:|---:|
-| Gemini 3.5 Flash-Lite | — | — | — |
-| GPT-OSS 120B via Groq | — | — | — |
-| Qwen 3.8 27B via Groq | — | — | — |
-| Rule-based momentum baseline | — | — | — |
+| Gemini Flash (Free) | $1,000.00 | -0.00% | 0.0% |
+| GPT-OSS 120B (Groq Free) | $1,000.00 | -0.00% | 0.0% |
+| Qwen 3.8 27B (Groq Free) | $1,000.00 | -0.00% | 0.0% |
+| Momentum Control | $1,000.00 | -0.00% | 0.0% |
 
-**Prelaunch:** Synthetic tests passed; real model inference still gated behind an explicit free-tier verification variable. The 7-day clock has not started.
+**Market status:** OK
+**Last healthy scan:** 2026-11-17T00:04:02+00:00
 
-The scheduled workflow will update this file when a valid paper-trading test runs. The GitHub Pages visual dashboard is optional.
+GitHub Actions and data-provider outages may delay this snapshot.
