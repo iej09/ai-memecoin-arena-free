@@ -42,7 +42,26 @@ def data():
                     "groq_qwen": "Qwen 3.8 27B (Groq Free)", "momentum_baseline": "Momentum Control"}[agent]
             h = rows(conn, "SELECT symbol,mint,quantity_raw,decimals,cost_usd "
                       "FROM holdings WHERE agent=?", (agent,))
+            latest = conn.execute(
+                "SELECT action, accepted, explanation, at_utc FROM decisions "
+                "WHERE agent=? ORDER BY rowid DESC LIMIT 1", (agent,)).fetchone()
+            if latest is None:
+                decision_label, decision_health, decision_at = "PENDING", "PENDING", None
+            else:
+                decision_label = str(latest["action"] or "HOLD").upper()
+                decision_at = latest["at_utc"]
+                if latest["accepted"]:
+                    decision_health = "OK"
+                elif "Client Error" in (latest["explanation"] or "") or \
+                     "API failure" in (latest["explanation"] or "") or \
+                     "Read timed out" in (latest["explanation"] or ""):
+                    decision_health = "API_ERROR"
+                else:
+                    decision_health = "REJECTED"
             scoreboard.append({"agent": agent, "name": name,
+                               "last_decision": decision_label,
+                               "last_decision_health": decision_health,
+                               "last_decision_at": decision_at,
                                "nav_cad": round(nav, 2), "pnl_cad": round(nav-1000, 2),
                                "return_pct": round((nav/1000-1)*100, 2),
                                "cash_usd": round(float(s["cash_usd"]) if s.get("cash_usd") is not None else cash0, 2),
