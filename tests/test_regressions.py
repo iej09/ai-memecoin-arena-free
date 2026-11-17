@@ -212,7 +212,7 @@ def test_gemini_uses_supported_json_schema_response_configuration(monkeypatch):
     config = sent["body"]["generationConfig"]
     assert config["responseMimeType"] == "application/json"
     assert config["responseJsonSchema"] == a.DECISION_SCHEMA
-    assert config["thinkingConfig"]["thinkingLevel"] == "LOW"
+    assert config["thinkingConfig"]["thinkingLevel"] == "MINIMAL"
     assert "temperature" not in config
     assert "responseSchema" not in config
 
