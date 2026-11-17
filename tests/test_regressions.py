@@ -352,12 +352,13 @@ def test_clock_based_ai_cadence_survives_skipped_github_runs(tmp_path, monkeypat
 
 def test_gptoss_400_strict_decoding_falls_back_to_validated_json(monkeypatch):
     import requests
+    import copy
     monkeypatch.setenv("GROQ_API_KEY", "mock-free-key")
     error = requests.Response()
     error.status_code = 400
     calls = []
     def mock_http(method, url, **kwargs):
-        calls.append(kwargs["body"])
+        calls.append(copy.deepcopy(kwargs["body"]))
         if len(calls) == 1:
             raise requests.HTTPError("400 Bad Request", response=error)
         return {"choices": [{"message": {"content":
