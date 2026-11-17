@@ -47,7 +47,7 @@ No X paid API, Birdeye paid API, Helius paid RPC or Bitquery service is called i
 
 ### Step 1. Create your free API keys **without adding billing**
 
-- **Gemini:** Open [Google AI Studio / API keys](https://aistudio.google.com/apikey), make a **Free Tier** API project, and create an API key. Never attach a billing account to this project. Default model is `gemini-3.8-flash`; if it is not available on your free-tier project, check the provider's current list and change `GEMINI_MODEL` in `.env.example` or in the GitHub workflow environment to a free-eligible model.
+- **Gemini:** Open [Google AI Studio / API keys](https://aistudio.google.com/apikey), make a **Free Tier** API project, and create an API key. Never attach a billing account to this project. Default model is `gemini-3.5-flash-lite`; if it is not available on your free-tier project, check the provider's current list and change `GEMINI_MODEL` in `.env.example` or in the GitHub workflow environment to a free-eligible model.
 - **Groq:** Open [Groq Cloud API keys](https://console.groq.com/keys), stay on the **Free** plan, and create an API key. Do not upgrade to Developer or attach a payment method. The two models share the same Groq account's quotas.
 - **Jupiter:** No key is required; the keyless API is limited to about 0.5 requests/second. You may optionally create a **Free** Jupiter key through [Jupiter Developer Platform](https://developers.jup.ag/portal) to raise the request rate. Avoid its paid plans.
 
@@ -57,7 +57,7 @@ No X paid API, Birdeye paid API, Helius paid RPC or Bitquery service is called i
 
 Repository: [iej09/ai-memecoin-arena-free](https://github.com/iej09/ai-memecoin-arena-free).
 It already contains the paper-trading engine, tests, and a [GitHub-native scoreboard](STATUS.md).
-GitHub Actions secrets `GEMINI_API_KEY` and `GROQ_API_KEY` are present. A safe, read-only API check confirmed these three model IDs are available: `gemini-3.8-flash`, `openai/gpt-oss-120b`, `qwen/qwen3.8-27b`. **Model inference has NOT been tested and the 7-day competition has NOT started.**
+GitHub Actions secrets `GEMINI_API_KEY` and `GROQ_API_KEY` are present. A safe, read-only API check confirmed these three model IDs are available: `gemini-3.5-flash-lite`, `openai/gpt-oss-120b`, `qwen/qwen3.8-27b`. **Model inference has NOT been tested and the 7-day competition has NOT started.**
 
 1. Verify in [Google AI Studio](https://aistudio.google.com/) that the Gemini project is explicitly **Free Tier with no linked paid billing**. Verify [GroqCloud](https://console.groq.com/) is on the **Free plan**, with no paid plan/automatic billing. If either is not clearly free, **do not proceed**.
 2. In [GitHub Actions repository variables](https://github.com/iej09/ai-memecoin-arena-free/settings/variables/actions) create `ARENA_FREE_TIER_VERIFIED` with value `true`, **only after checking both providers yourself**. This is a user attestation; the API metadata endpoints cannot reveal your billing plan.
