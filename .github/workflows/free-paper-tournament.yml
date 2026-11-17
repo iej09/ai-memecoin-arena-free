@@ -53,6 +53,19 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Restore the original simulated portfolio and deadline
         run: python state_tools.py restore
+      - name: Verify persisted competition clock
+        run: |
+          python - <<'PY'
+          from tournament import Ledger, DB_PATH
+          ledger = Ledger(DB_PATH)
+          start = ledger.meta("started_at")
+          deadline = ledger.meta("deadline")
+          if start is not None and (deadline is None or
+                                    abs(float(deadline) - float(start) - 604800) > 0.01):
+              raise RuntimeError("Saved 7-day deadline is inconsistent; refusing to modify state")
+          print("Original clock preserved:", bool(start), "iteration", ledger.meta("iteration"))
+          ledger.db.close()
+          PY
       - name: Free API preflight (refreshes when needed, does not start clock)
         run: python preflight.py
       - name: Run exactly one PAPER-ONLY tick
@@ -70,6 +83,7 @@ jobs:
           if [ -d docs/results ]; then git add docs/results/*.csv; fi
           if ! git diff --cached --quiet; then
             git commit -m 'paper tick: update scoreboard and ledger'
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
       - name: Configure GitHub Pages
