@@ -291,17 +291,26 @@ def x_signals(tokens: list[dict]) -> dict[str, dict]:
 
 
 def compact_free_packet(packet: dict) -> dict:
-    """Bound prompt size to help remain within free daily token quotas."""
+    """Give all competitors the SAME bounded research packet, within free token quotas."""
     fields = ("timestamp_utc", "time_remaining_hours", "portfolio", "fx_cad_per_usd",
               "signal_availability", "execution", "research_remaining", "research_tools", "test_only")
     compact = {k: packet[k] for k in fields if k in packet}
-    token_fields = ("id", "name", "symbol", "decimals", "liquidity", "holderCount",
-                    "organicScore", "usdPrice", "mcap", "audit", "stats5m", "stats1h")
-    compact["candidates"] = [{k: t.get(k) for k in token_fields}
-                             for t in packet.get("candidates", [])[:MAX_CANDIDATES]]
+    audit_fields = ("isSus", "mintAuthorityDisabled", "freezeAuthorityDisabled",
+                    "topHoldersPercentage", "devBalancePercentage")
+    stats_fields = ("priceChange", "numBuys", "numSells", "buyVolume", "sellVolume")
+    compact["candidates"] = []
+    for t in packet.get("candidates", [])[:MAX_CANDIDATES]:
+        item = {k: t.get(k) for k in ("id", "symbol", "name", "liquidity",
+                                    "holderCount", "organicScore", "usdPrice", "mcap")}
+        item["name"] = str(item.get("name") or "")[:70]
+        item["symbol"] = str(item.get("symbol") or "")[:25]
+        for field in ("audit", "stats5m", "stats1h"):
+            obj = t.get(field) or {}
+            wanted = audit_fields if field == "audit" else stats_fields
+            item[field] = {k: obj[k] for k in wanted if isinstance(obj, dict) and k in obj}
+        compact["candidates"].append(item)
     if "deep_research" in packet:
-        # Include full response only up to bounded length; avoid untrusted oversized content.
-        compact["deep_research"] = json.dumps(packet["deep_research"], ensure_ascii=True)[:5500]
+        compact["deep_research"] = json.dumps(packet["deep_research"], ensure_ascii=True)[:2700]
     return compact
 
 
@@ -335,9 +344,29 @@ def llm_decision(provider: str, packet: dict) -> dict:
         # GPT-OSS does not support reasoning_format; Qwen 3.8 does.
         if provider == "groq_qwen":
             groq_body["reasoning_format"] = "hidden"
-        obj = http_json("POST", "https://api.groq.com/openai/v1/chat/completions",
-            headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"},
-            body=groq_body, timeout=60)
+        # Groq free-tier TPM is shared across the account. Retry 429 once,
+        # respecting the server's Retry-After header; never upgrade to paid.
+        for attempt in range(2):
+            try:
+                obj = http_json("POST", "https://api.groq.com/openai/v1/chat/completions",
+                    headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"},
+                    body=groq_body, timeout=60)
+                break
+            except requests.HTTPError as exc:
+                status = exc.response.status_code if exc.response is not None else None
+                if attempt or status not in (429, 500, 502, 503, 504):
+                    raise
+                if status == 429:
+                    header = exc.response.headers.get("Retry-After", "30")
+                    try:
+                        wait = min(90.0, max(2.0, float(header)))
+                    except (ValueError, TypeError):
+                        wait = 30.0
+                else:
+                    wait = 3.0
+                print("Groq request delayed:", provider, "HTTP", status,
+                      "waiting", round(wait, 1), "seconds", flush=True)
+                time.sleep(wait)
         text = str(((obj.get("choices") or [{}])[0].get("message") or {}).get("content") or "")
     try:
         return json.loads(text)
