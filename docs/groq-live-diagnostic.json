@@ -1,0 +1,12 @@
+{
+  "model": "openai/gpt-oss-120b",
+  "api_request_count": 1,
+  "real_trades": 0,
+  "tournament_clock_modified": false,
+  "status": "ok",
+  "http_status": null,
+  "error_type": null,
+  "error_summary": null,
+  "packet_characters": 4415,
+  "response_action": "RESEARCH"
+}
