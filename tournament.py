@@ -760,8 +760,26 @@ class Engine:
         # rather than a fixed number of successful ticks to schedule model decisions.
         decision_interval = DECISION_EVERY * INTERVAL_SECONDS
         prior_round = float(self.L.meta("last_ai_round_at", 0) or 0)
-        if candidates and (not prior_round or time.time() - prior_round >= decision_interval):
+        full_round_due = not prior_round or time.time() - prior_round >= decision_interval
+        # A provider failure should not leave a competitor stuck until the next
+        # full round. Retry only that AI, at most once per 3 minutes, within free caps.
+        retry_agents = set()
+        if candidates and not full_round_due:
+            for name in MODELS:
+                row = self.L.db.execute(
+                    "SELECT reason, at_utc FROM decisions WHERE agent=? "
+                    "ORDER BY rowid DESC LIMIT 1", (name,)).fetchone()
+                if row and row["reason"] == "API failure":
+                    try:
+                        elapsed = time.time() - datetime.fromisoformat(row["at_utc"]).timestamp()
+                    except (ValueError, TypeError):
+                        elapsed = 0
+                    if elapsed >= 180:
+                        retry_agents.add(name)
+        if candidates and (full_round_due or retry_agents):
             for agent in AGENTS:
+                if not full_round_due and agent not in retry_agents:
+                    continue
                 p = self.portfolio_packet(agent)
                 packet = {"timestamp_utc": stamp(), "time_remaining_hours":
                           max(0, (float(self.L.meta("deadline")) - time.time()) / 3600),
@@ -802,7 +820,8 @@ class Engine:
                 self.L.decision(agent, decision, accepted, detail, packet)
                 self.risk_controls(agent)
                 print(stamp(), agent, decision.get("action"), accepted, detail, flush=True)
-            self.L.set_meta("last_ai_round_at", time.time())
+            if full_round_due:
+                self.L.set_meta("last_ai_round_at", time.time())
         for agent in AGENTS:
             p = self.portfolio_packet(agent)
             self.L.snapshot(agent, p["cash_usd"], p["exposure_usd"], fx,
