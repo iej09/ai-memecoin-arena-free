@@ -258,3 +258,42 @@ def test_preflight_checks_all_agents_and_does_not_start_if_one_provider_fails(tm
     assert seen == list(a.MODELS)
     ledger = a.Ledger(tmp_path / "preflight.db")
     assert ledger.meta("started_at") is None
+
+
+def test_groq_429_uses_retry_after_and_succeeds(monkeypatch):
+    import requests
+    monkeypatch.setenv("GROQ_API_KEY", "unit-test-free-key")
+    response = requests.Response()
+    response.status_code = 429
+    response.headers["Retry-After"] = "4"
+    calls = []
+    sleeps = []
+    result = '{"action":"HOLD","mint":"","usd_amount":0,"research_type":"ALL","reason":"OK"}'
+    def stub_request(method, url, **kwargs):
+        calls.append(url)
+        if len(calls) == 1:
+            raise requests.HTTPError("429 Too Many Requests", response=response)
+        return {"choices": [{"message": {"content": result}}]}
+    monkeypatch.setattr(a, "http_json", stub_request)
+    monkeypatch.setattr(a.time, "sleep", lambda seconds: sleeps.append(seconds))
+    assert a.llm_decision("groq_qwen", {"candidates": []})["action"] == "HOLD"
+    assert len(calls) == 2
+    assert sleeps == [4.0]
+
+
+def test_live_candidate_packet_reduces_free_tier_token_cost():
+    import json
+    candidates = []
+    for i in range(8):
+        candidates.append({
+            **tok(chr(65+i)*32),
+            "name": "extremely long untrusted token name " * 25,
+            "stats5m": {"priceChange": 3, "numBuys": 3, "numSells": 2,
+                         "unimportant": "u" * 4000},
+            "audit": {**tok("A"*32)["audit"], "unimportant": "x" * 4000}
+        })
+    result = a.compact_free_packet({"candidates": candidates})
+    assert len(result["candidates"]) == 8
+    assert all("unimportant" not in x["stats5m"] for x in result["candidates"])
+    assert all(len(x["name"]) <= 70 for x in result["candidates"])
+    assert len(json.dumps(result)) < 7000
