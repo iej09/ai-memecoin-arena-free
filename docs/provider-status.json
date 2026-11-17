@@ -1,10 +1,12 @@
 {
-  "checked_at_utc": "2026-11-14T19:44:19+00:00",
+  "checked_at_utc": "2026-11-17T00:02:05+00:00",
   "gemini": {
     "key_present": true,
     "model_list_http_status": 200,
     "configured_model_found": true,
     "error_class": "ok",
+    "fallback_3_5_flash_lite_available": true,
+    "fallback_2_5_flash_lite_available": true,
     "available_flash_models": [
       "gemini-2.5-flash",
       "gemini-2.5-flash-image",
