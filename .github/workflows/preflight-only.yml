@@ -1,10 +1,7 @@
 name: Check free APIs without starting tournament
+# Manual only: preflight consumes scarce free-tier AI quota.
+# Do not run on every code push during the live seven-day trial.
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/preflight-only.yml'
-      - 'tournament.py'
   workflow_dispatch:
 permissions:
   contents: read
