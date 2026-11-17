@@ -344,9 +344,10 @@ def llm_decision(provider: str, packet: dict) -> dict:
         # GPT-OSS does not support reasoning_format; Qwen 3.8 does.
         if provider == "groq_qwen":
             groq_body["reasoning_format"] = "hidden"
-        # Groq free-tier TPM is shared across the account. Retry 429 once,
-        # respecting the server's Retry-After header; never upgrade to paid.
-        for attempt in range(2):
+        # Free-tier resilience: at most three total requests. A strict-schema
+        # 400 from GPT-OSS gets one JSON-object fallback; 429 respects Retry-After.
+        used_json_fallback = False
+        for attempt in range(3):
             try:
                 obj = http_json("POST", "https://api.groq.com/openai/v1/chat/completions",
                     headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"},
@@ -354,7 +355,23 @@ def llm_decision(provider: str, packet: dict) -> dict:
                 break
             except requests.HTTPError as exc:
                 status = exc.response.status_code if exc.response is not None else None
-                if attempt or status not in (429, 500, 502, 503, 504):
+                if status == 400 and provider == "groq_gptoss" and not used_json_fallback and attempt < 2:
+                    # Strict decoding occasionally rejects a live packet on this API.
+                    # Keep the same data/strategy but ask for JSON-object output.
+                    groq_body["response_format"] = {"type": "json_object"}
+                    groq_body["reasoning_effort"] = "low"
+                    used_json_fallback = True
+                    print("GPT-OSS strict-schema request rejected; attempting guarded JSON mode", flush=True)
+                    continue
+                if status not in (429, 500, 502, 503, 504) or attempt == 2:
+                    if status == 400:
+                        try:
+                            error = exc.response.json().get("error", {})
+                            print("Groq bad request:", provider, "type:",
+                                  str(error.get("type", ""))[:50],
+                                  "code:", str(error.get("code", ""))[:50], flush=True)
+                        except (ValueError, AttributeError):
+                            pass
                     raise
                 if status == 429:
                     header = exc.response.headers.get("Retry-After", "30")
@@ -369,12 +386,15 @@ def llm_decision(provider: str, packet: dict) -> dict:
                 time.sleep(wait)
         text = str(((obj.get("choices") or [{}])[0].get("message") or {}).get("content") or "")
     try:
-        return json.loads(text)
+        result = json.loads(text)
     except json.JSONDecodeError:
         match = re.search(r"\{.*\}", text, re.S)
-        if match:
-            return json.loads(match.group())
-        raise ValueError("No JSON response from " + provider + ": " + text[:200])
+        if not match:
+            raise ValueError("No JSON object from " + provider)
+        result = json.loads(match.group())
+    if not isinstance(result, dict) or result.get("action") not in {"BUY", "SELL", "HOLD", "RESEARCH"}:
+        raise ValueError("Invalid action/JSON response from " + provider)
+    return result
 
 
 def baseline_decision(packet: dict) -> dict:
