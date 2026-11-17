@@ -27,20 +27,21 @@ jobs:
           from pathlib import Path
           import requests
           import tournament as a
-          data=json.loads(Path("docs/data.json").read_text())
-          coins=[]
-          for t in data.get("research", [])[:8]:
-              coins.append({"id":t.get("mint"),"name":t.get("name"),
-                            "symbol":t.get("symbol"),"organicScore":t.get("organic_score"),
-                            "liquidity":t.get("liquidity_usd"),"usdPrice":t.get("price_usd"),
-                            "audit":t.get("audit"),"stats5m":{"priceChange":t.get("momentum_5m")},
-                            "stats1h":{"priceChange":0}})
+          # Assemble the identical 8-token packet shape used by the live arena,
+          # but against a disposable local SQLite DB, NEVER the live ledger.
+          import tempfile
+          with tempfile.TemporaryDirectory() as work:
+              ledger=a.Ledger(Path(work)/"diagnostic.sqlite3")
+              engine=a.Engine(ledger,a.Jupiter())
+              coins, _ = engine.market_packet()
+              ledger.db.close()
           packet={"timestamp_utc":datetime.now(timezone.utc).isoformat(),
                   "time_remaining_hours":160,
                   "portfolio":{"equity_usd":700,"cash_usd":700,"holdings":[]},
                   "candidates":coins,"research_remaining":True,
                   "signal_availability":{"x":False,"fomo_onchain":False},
-                  "execution":"Simulated quotes only"}
+                  "execution":"Simulated quotes only",
+                  "research_tools":["MARKET","RISK","WALLET","SOCIAL","ALL"]}
           output={"model":"openai/gpt-oss-120b","api_request_count":1,
                   "real_trades":0,"tournament_clock_modified":False,
                   "status":"unavailable","http_status":None,"error_type":None,
