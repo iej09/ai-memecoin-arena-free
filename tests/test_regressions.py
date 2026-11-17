@@ -385,3 +385,34 @@ def test_gptoss_fallback_rejects_invalid_action(monkeypatch):
     monkeypatch.setattr(a, "http_json", mock_http)
     with pytest.raises(ValueError, match="Invalid action"):
         a.llm_decision("groq_gptoss", {"candidates": []})
+
+
+def test_failed_groq_ai_gets_catchup_without_rescheduling_healthy_bots(tmp_path, monkeypatch):
+    import time as real_time
+    monkeypatch.setattr(a, "fx_cad_per_usd", lambda: 1.4)
+    class Market:
+        def discover(self):
+            return [tok("A"*32)]
+        def quote(self, im, om, amount):
+            return amount * 2 if im == a.USDC else amount // 2
+    ledger = a.Ledger(tmp_path / "catchup.sqlite3")
+    ledger.initialize(1.4)
+    prior_round = real_time.time()
+    ledger.set_meta("last_ai_round_at", prior_round)
+    ledger.decision("groq_gptoss", {"action":"HOLD","reason":"API failure"},
+                    False, "400 Client Error", {"candidates":[]})
+    monkeypatch.setattr(a.time, "time", lambda: prior_round + 301)
+    seen = []
+    def fake_llm(agent, packet):
+        seen.append(agent)
+        return {"action":"HOLD","mint":"","usd_amount":0,"reason":"recovered"}
+    monkeypatch.setattr(a, "llm_decision", fake_llm)
+    engine = a.Engine(ledger, Market())
+    engine.step()
+    assert seen == ["groq_gptoss"]
+    assert ledger.meta("last_ai_round_at") == prior_round
+    row = ledger.db.execute(
+        "SELECT accepted,reason FROM decisions WHERE agent='groq_gptoss' "
+        "ORDER BY rowid DESC LIMIT 1").fetchone()
+    assert row["accepted"] == 1
+    assert row["reason"] == "recovered"
