@@ -319,3 +319,32 @@ def test_public_scoreboard_flags_groq_api_error_separately_from_hold(tmp_path, m
     monkeypatch.chdir(tmp_path)
     runpy.run_module("static_export", run_name="__main__")
     assert "API ERROR" in (tmp_path / "STATUS.md").read_text()
+
+
+def test_clock_based_ai_cadence_survives_skipped_github_runs(tmp_path, monkeypatch):
+    fake_time = [1800000000.]
+    monkeypatch.setattr(a.time, "time", lambda: fake_time[0])
+    monkeypatch.setattr(a, "fx_cad_per_usd", lambda: 1.4)
+    class Market:
+        def discover(self):
+            return [tok("A" * 32)]
+        def quote(self, input_mint, output_mint, amount):
+            return amount * 2 if input_mint == a.USDC else amount // 2
+    calls = []
+    def fake_ai(agent, packet):
+        calls.append((agent, fake_time[0]))
+        return {"action": "HOLD", "mint": "", "usd_amount": 0, "reason": "mock"}
+    monkeypatch.setattr(a, "llm_decision", fake_ai)
+    ledger = a.Ledger(tmp_path / "tick-cadence.sqlite3")
+    engine = a.Engine(ledger, Market())
+    engine.step()
+    original_start = ledger.meta("started_at")
+    assert len(calls) == len(a.MODELS)
+    fake_time[0] += 900
+    engine.step()
+    assert len(calls) == len(a.MODELS)
+    fake_time[0] += 4000
+    engine.step()
+    assert len(calls) == 2 * len(a.MODELS)
+    assert ledger.meta("started_at") == original_start
+    assert ledger.meta("deadline") == original_start + 7*86400
