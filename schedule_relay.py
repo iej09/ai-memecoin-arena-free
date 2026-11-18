@@ -62,7 +62,7 @@ def relay_plan(state, event_name, now, latest_dispatch_at=None):
     return True, wait, "dispatch-next-paper-tick"
 
 
-def github_request(url, token, data=None):
+def github_request(url, token, data=None, method=None):
     headers = {
         "Authorization": "Bearer " + token,
         "Accept": "application/vnd.github+json",
@@ -73,10 +73,10 @@ def github_request(url, token, data=None):
         headers["Content-Type"] = "application/json"
     req = urllib.request.Request(
         url, headers=headers, data=json.dumps(data).encode("utf-8") if data is not None else None,
-        method="POST" if data is not None else "GET",
+        method=method or ("POST" if data is not None else "GET"),
     )
     with urllib.request.urlopen(req, timeout=25) as response:
-        return response.status, json.load(response) if data is None else None
+        return response.status, json.load(response) if (method or ("POST" if data is not None else "GET")) == "GET" else None
 
 
 def latest_dispatch_time(repo, token):
@@ -87,6 +87,16 @@ def latest_dispatch_time(repo, token):
         return None
     runs = data.get("workflow_runs") or []
     return as_epoch(runs[0].get("created_at")) if runs else None
+
+
+def disable_completed_workflow(repo, token):
+    """Stop free-runner usage after the seven-day paper trial is saved."""
+    endpoint = (f"https://api.github.com/repos/{repo}/actions/workflows/"
+                f"{WORKFLOW}/disable")
+    status, _ = github_request(endpoint, token, method="PUT")
+    if status != 204:
+        raise RuntimeError("GitHub workflow disable returned unexpected HTTP " + str(status))
+    print("Saved seven-day results are FINAL: tournament workflow disabled", flush=True)
 
 
 def main():
@@ -106,6 +116,11 @@ def main():
     should, delay, why = relay_plan(state, event_name, now, recent)
     print("Paper relay plan:", why, "wait seconds", int(delay), flush=True)
     if not should:
+        if why == "tournament-finished":
+            try:
+                disable_completed_workflow(repo, token)
+            except (urllib.error.URLError, RuntimeError) as ex:
+                print("Auto-disable unavailable:", type(ex).__name__, flush=True)
         return 0
     if delay > 0:
         time.sleep(delay)
@@ -113,12 +128,15 @@ def main():
     # watchdog run may have finalized the competition in the meantime.
     try:
         url = f"https://raw.githubusercontent.com/{repo}/main/docs/data.json"
-        status, _unused = 0, None
         req = urllib.request.Request(url, headers={"User-Agent": "Arena-Paper-Relay"})
         with urllib.request.urlopen(req, timeout=25) as response:
             fresh = json.load(response)
         if fresh.get("meta", {}).get("finished") or fresh.get("status") == "FINISHED":
             print("Tournament finished while relay slept; no dispatch", flush=True)
+            try:
+                disable_completed_workflow(repo, token)
+            except (urllib.error.URLError, RuntimeError) as ex:
+                print("Auto-disable unavailable:", type(ex).__name__, flush=True)
             return 0
         # Check that the original clock was not modified by a later runner.
         _, _, reason = relay_plan(fresh, "workflow_dispatch", time.time())
