@@ -140,3 +140,26 @@ jobs:
         if: ${{ steps.pages.outputs.enabled == 'true' }}
         id: deployment
         uses: actions/deploy-pages@v4
+
+  relay:
+    # GitHub cron is best-effort. Re-dispatch the next paper tick via GitHub's
+    # documented workflow_dispatch exception. Scheduled runs are watchdogs:
+    # they can restart a relay that has been missing for 30+ minutes.
+    needs: simulate
+    if: ${{ needs.simulate.result == 'success' && vars.ARENA_FREE_TIER_VERIFIED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    concurrency:
+      group: paper-arena-dispatch-relay
+      cancel-in-progress: false
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Schedule next 15-minute paper checkpoint (no paid tools)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python schedule_relay.py
