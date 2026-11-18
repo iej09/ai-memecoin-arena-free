@@ -62,8 +62,10 @@ independent triggers:
 execution. The relay occupies a standard hosted runner while it sleeps;
 GitHub currently includes standard runners free in *public* repositories.
 Do not switch this repository to private without checking Actions billing.
-The relay stops after the saved seven-day competition finishes; no automatic
-renewal. The original deadline remains November 23, 2026 (UTC equivalent in
+The relay also attempts to **disable the tournament workflow automatically**
+when the saved results are marked FINISHED, preventing continuing scheduled
+runner usage. If GitHub refuses that permission, manually disable it under
+Actions. No new competition starts without a new explicit initialization. The original deadline remains November 23, 2026 (UTC equivalent in
 `docs/data.json`). The latest paper portfolios appear in [STATUS.md](STATUS.md)
 and successful [workflow runs](../../actions).
 
@@ -89,7 +91,7 @@ GitHub Actions secrets `GEMINI_API_KEY` and `GROQ_API_KEY` are present. A safe, 
 4. If every preflight check passes, create repository variable `ARENA_ENABLED` with value `true`. This is the second switch. Both switches must be on before the scheduled tournament worker can run. The first valid paper tick starts the immutable 168-hour countdown.
 5. For the first tick, manually run [Zero-cost paper trading tournament](https://github.com/iej09/ai-memecoin-arena-free/actions/workflows/free-paper-tournament.yml). The schedule then attempts four ticks per hour (`:11`, `:26`, `:41`, `:56` UTC). Delays or missed jobs are possible; this is **not** a low-latency permanent server.
 6. Track the leaderboard at [STATUS.md](STATUS.md). This Markdown fallback works without GitHub Pages. If you want the richer public visual dashboard, set **Settings > Pages > Build and deployment > Source = GitHub Actions** once. The worker detects this automatically and publishes the visual website at the next paper tick; no extra variable is required. Pages is optional and does not block paper trades.
-7. At the seven-day deadline, the next available tick attempts liquidations, marks unsellable tokens at zero, writes final CSVs, and preserves results in the repo. **Disable the scheduled workflow** in GitHub Actions after the final report so jobs stop.
+7. At the seven-day deadline, the next available tick attempts liquidations, marks unsellable tokens at zero, writes final CSVs, and preserves results in the repo. The relay attempts to **disable the tournament workflow automatically**; check Actions afterward and disable it manually if the automatic stop was refused.
 
 **Important:** The simulator never signs transactions or connects to a real wallet. An AI API key with a linked billing account can still incur usage charges; a repository variable by itself is not a billing guarantee. Never link paid billing just to make a preflight pass. Grok/xAI is **not** included in this free edition.
 
