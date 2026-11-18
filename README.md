@@ -43,6 +43,30 @@ No X paid API, Birdeye paid API, Helius paid RPC or Bitquery service is called i
 - The paper tournament is **NOT_STARTED**, and paid providers, X API, Bitquery and all real trading remain disabled.
 - The [GitHub-native status page](STATUS.md) works without GitHub Pages. The visual Pages deployment needs a one-time Pages setup.
 
+### Reliable 7-day paper cadence (November 18 repair)
+
+GitHub cron is best-effort; it was missing many 15-minute intervals. The live
+[tournament workflow](.github/workflows/free-paper-tournament.yml) now has two
+independent triggers:
+
+- A lightweight **GitHub Actions relay** waits for the next 15-minute checkpoint
+  and uses only the scoped built-in `GITHUB_TOKEN` and `workflow_dispatch` to
+  start the next paper tick. It does **not** create a personal access token,
+  modify the ledger, sign a swap, or call AI providers.
+- The original cron remains a **watchdog**. A missed relay can be restarted by a
+  cron-triggered job when no dispatch has been seen for 30 minutes. Duplicated
+  triggers serialize using a shared job group, and real AI decisions remain
+  restricted to roughly hourly intervals by the original daily free-tier caps.
+
+**Platform limits:** GitHub Actions cannot promise real-time or uninterrupted
+execution. The relay occupies a standard hosted runner while it sleeps;
+GitHub currently includes standard runners free in *public* repositories.
+Do not switch this repository to private without checking Actions billing.
+The relay stops after the saved seven-day competition finishes; no automatic
+renewal. The original deadline remains November 23, 2026 (UTC equivalent in
+`docs/data.json`). The latest paper portfolios appear in [STATUS.md](STATUS.md)
+and successful [workflow runs](../../actions).
+
 ## Launch on a $0 GitHub-hosted schedule (recommended for the free first test)
 
 ### Step 1. Create your free API keys **without adding billing**
