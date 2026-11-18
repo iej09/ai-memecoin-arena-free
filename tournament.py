@@ -69,6 +69,10 @@ If research_remaining is false, do not request RESEARCH again.
 Only BUY mints in the candidates list. Only SELL a mint you hold; SELL closes it entirely.
 Maximum exposure is enforced by code: 100% of paper equity across tokens or in one token.
 No leverage, negative cash, or additional deposits; gas and execution costs still apply.
+A BUY can spend ONLY the currently uncommitted cash, not the value of assets already held.
+If already fully invested and you want to switch coins, choose SELL for your old
+holding first; a later decision can BUY the replacement. Never request a BUY
+that needs proceeds from a SELL you have not made yet.
 Never claim that an approximate/quote-only fill was an actual on-chain execution.
 If nothing is compelling, HOLD. DO NOT output markdown."""
 
