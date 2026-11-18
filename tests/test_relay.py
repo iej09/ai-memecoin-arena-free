@@ -89,3 +89,24 @@ def test_relay_does_not_run_for_unrecognized_event_types():
 def test_date_parsing_supports_github_utc_format():
     assert abs(relay.as_epoch("2026-11-17T00:03:51+00:00") - 1794873831) < 0.1
     assert relay.as_epoch("not-a-date") is None
+
+
+def test_finalized_workflow_calls_only_scoped_disable_endpoint(monkeypatch):
+    calls = []
+    def fake_request(url, token, data=None, method=None):
+        calls.append((url, token, data, method))
+        return 204, None
+    monkeypatch.setattr(relay, "github_request", fake_request)
+    relay.disable_completed_workflow("iej09/ai-memecoin-arena-free", "fake-action-token")
+    assert len(calls) == 1
+    url, token, data, method = calls[0]
+    assert url.endswith("/actions/workflows/free-paper-tournament.yml/disable")
+    assert method == "PUT"
+    assert data is None
+
+
+def test_finished_run_cannot_restart_even_if_cron_watchdog_fires():
+    now = T0 + 604800 + 200
+    trigger, wait, why = relay.relay_plan(
+        state(finished=True), "schedule", now, latest_dispatch_at=T0)
+    assert (trigger, wait, why) == (False, 0, "tournament-finished")
