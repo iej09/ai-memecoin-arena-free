@@ -11,16 +11,16 @@
     "deadline":1795478631.4168396,
     "start_fx_cad_per_usd":1.4285,
     "finished":false,
-    "last_heartbeat":"2026-11-19T19:14:26+00:00",
+    "last_ai_round_at":1795115729.7592018,
+    "last_heartbeat":"2026-11-19T19:30:52+00:00",
     "fx_status":"CURRENT",
     "last_fx":1.43,
-    "last_market_utc":"2026-11-19T19:14:30+00:00",
+    "last_market_utc":"2026-11-19T19:30:56+00:00",
     "last_market_status":"OK",
     "last_candidate_count":8,
-    "last_ai_round_at":1795115729.7592018,
-    "iteration":67,
-    "last_healthy_tick":"2026-11-19T19:15:36+00:00",
-    "last_completed_tick":"2026-11-19T19:15:36+00:00"
+    "iteration":68,
+    "last_healthy_tick":"2026-11-19T19:31:05+00:00",
+    "last_completed_tick":"2026-11-19T19:31:05+00:00"
   },
   "scoreboard":[
     {
@@ -29,9 +29,9 @@
       "last_decision":"BUY",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-19T19:15:08+00:00",
-      "nav_cad":2062.17,
-      "pnl_cad":1062.17,
-      "return_pct":106.22,
+      "nav_cad":1851.24,
+      "pnl_cad":851.24,
+      "return_pct":85.12,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -46,14 +46,36 @@
       ]
     },
     {
+      "agent":"momentum_baseline",
+      "name":"Momentum Control",
+      "last_decision":"SELL",
+      "last_decision_health":"OK",
+      "last_decision_at":"2026-11-19T19:15:27+00:00",
+      "nav_cad":910.54,
+      "pnl_cad":-89.46,
+      "return_pct":-8.95,
+      "cash_usd":570.49,
+      "exposure_pct":10.4,
+      "unsellable":0,
+      "holdings":[
+        {
+          "symbol":"VINE",
+          "mint":"6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump",
+          "quantity_raw":6808057538,
+          "decimals":6,
+          "cost_usd":77.69
+        }
+      ]
+    },
+    {
       "agent":"gemini_free",
       "name":"Gemini Flash (Free)",
       "last_decision":"BUY",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-19T19:14:42+00:00",
-      "nav_cad":943.07,
-      "pnl_cad":-56.93,
-      "return_pct":-5.69,
+      "nav_cad":846.67,
+      "pnl_cad":-153.33,
+      "return_pct":-15.33,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -68,36 +90,14 @@
       ]
     },
     {
-      "agent":"momentum_baseline",
-      "name":"Momentum Control",
-      "last_decision":"SELL",
-      "last_decision_health":"OK",
-      "last_decision_at":"2026-11-19T19:15:27+00:00",
-      "nav_cad":911.45,
-      "pnl_cad":-88.55,
-      "return_pct":-8.85,
-      "cash_usd":570.49,
-      "exposure_pct":10.49,
-      "unsellable":0,
-      "holdings":[
-        {
-          "symbol":"VINE",
-          "mint":"6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump",
-          "quantity_raw":6808057538,
-          "decimals":6,
-          "cost_usd":77.69
-        }
-      ]
-    },
-    {
       "agent":"groq_qwen",
       "name":"Qwen 3.8 27B (Groq Free)",
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-19T19:15:22+00:00",
-      "nav_cad":755.59,
-      "pnl_cad":-244.41,
-      "return_pct":-24.44,
+      "nav_cad":761.54,
+      "pnl_cad":-238.46,
+      "return_pct":-23.85,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -1045,101 +1045,120 @@
   ],
   "research":[
     {
-      "at_utc":"2026-11-19T19:14:30+00:00",
+      "at_utc":"2026-11-19T19:30:56+00:00",
       "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
       "symbol":"JUP",
       "name":"Jupiter",
-      "organic_score":97.88713843187826,
-      "liquidity_usd":5100236.660123491,
-      "price_usd":0.2542780188811938,
-      "momentum_5m":0.36388850654002647,
+      "organic_score":98.06507343991971,
+      "liquidity_usd":5091420.590378792,
+      "price_usd":0.2546904598677858,
+      "momentum_5m":0.068197783198164,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":14.83586982659463,
+        "topHoldersPercentage":14.83589603789192,
         "devMints":1
       }
     },
     {
-      "at_utc":"2026-11-19T19:14:30+00:00",
+      "at_utc":"2026-11-19T19:30:56+00:00",
       "mint":"6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
       "symbol":"STONK",
       "name":"STONK",
-      "organic_score":86.07265673913912,
-      "liquidity_usd":1465875.109902601,
-      "price_usd":0.03773228376365494,
-      "momentum_5m":0.29020636179722176,
+      "organic_score":86.68501171178501,
+      "liquidity_usd":1451041.1718817388,
+      "price_usd":0.037558265168276275,
+      "momentum_5m":-1.8576701436870249,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":20.491119314659446,
-        "devBalancePercentage":0.0036020219585391573,
+        "topHoldersPercentage":20.491271608847796,
+        "devBalancePercentage":0.0036895874720058713,
         "devMigrations":11,
         "devMints":8483
       }
     },
     {
-      "at_utc":"2026-11-19T19:14:30+00:00",
+      "at_utc":"2026-11-19T19:30:56+00:00",
       "mint":"9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
       "symbol":"Fartcoin",
       "name":"Fartcoin",
-      "organic_score":82.29719878691446,
-      "liquidity_usd":4374328.2124203835,
-      "price_usd":0.08428925835554096,
-      "momentum_5m":0.3407843760533402,
+      "organic_score":82.3997801537695,
+      "liquidity_usd":4381387.723916376,
+      "price_usd":0.0849467311136222,
+      "momentum_5m":0.522199025410606,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":35.12747899700105,
-        "devBalancePercentage":4.133947232191461e-05,
+        "topHoldersPercentage":35.19119429261842,
+        "devBalancePercentage":4.13394723219147e-05,
         "devMigrations":265,
         "devMints":497
       }
     },
     {
-      "at_utc":"2026-11-19T19:14:30+00:00",
+      "at_utc":"2026-11-19T19:30:56+00:00",
+      "mint":"Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
+      "symbol":"USELESS",
+      "name":"USELESS COIN",
+      "organic_score":80.50012042536575,
+      "liquidity_usd":1784629.4788892257,
+      "price_usd":0.09970987434190177,
+      "momentum_5m":0.5704633426802518,
+      "audit":{
+        "mintAuthorityDisabled":true,
+        "freezeAuthorityDisabled":true,
+        "topHoldersPercentage":37.33007076167758,
+        "devBalancePercentage":2.499399031503706e-06,
+        "devMigrations":200,
+        "devMints":815
+      }
+    },
+    {
+      "at_utc":"2026-11-19T19:30:56+00:00",
+      "mint":"6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump",
+      "symbol":"VINE",
+      "name":"Vine Coin",
+      "organic_score":75.0,
+      "liquidity_usd":768941.0032213243,
+      "price_usd":0.009818593039462562,
+      "momentum_5m":1.3334933020853148,
+      "audit":{
+        "mintAuthorityDisabled":true,
+        "freezeAuthorityDisabled":true,
+        "topHoldersPercentage":21.745180952304477,
+        "devBalancePercentage":4.9568684632404745,
+        "devMigrations":1,
+        "devMints":1
+      }
+    },
+    {
+      "at_utc":"2026-11-19T19:30:56+00:00",
       "mint":"4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz",
       "symbol":"GTA6",
       "name":"GTA VI",
       "organic_score":75.0,
-      "liquidity_usd":72707.90730062677,
-      "price_usd":0.002584467597970527,
-      "momentum_5m":1.0565045740539125,
+      "liquidity_usd":74479.75886176742,
+      "price_usd":0.002520998850705462,
+      "momentum_5m":-4.463647097693832,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":9.250558533019356,
+        "topHoldersPercentage":9.250895747902428,
         "devBalancePercentage":0.0004948222534412871,
         "devMigrations":11,
         "devMints":8483
       }
     },
     {
-      "at_utc":"2026-11-19T19:14:30+00:00",
-      "mint":"8wXtPeU6557ETkp9WHFY1n1EcU6NxDvbAggHGsMYiHsB",
-      "symbol":"GME",
-      "name":"GameStop",
-      "organic_score":75.0,
-      "liquidity_usd":447405.2971916181,
-      "price_usd":0.00036455672811551144,
-      "momentum_5m":0.31313806786603776,
-      "audit":{
-        "mintAuthorityDisabled":true,
-        "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":10.256847404467557,
-        "devBalancePercentage":6.043641330284925e-06,
-        "devMints":6
-      }
-    },
-    {
-      "at_utc":"2026-11-19T19:14:30+00:00",
+      "at_utc":"2026-11-19T19:30:56+00:00",
       "mint":"METvsvVRapdj9cFLzq4Tr43xK4tAjQfwX76z3n6mWQL",
       "symbol":"MET",
       "name":"Meteora",
-      "organic_score":74.98579779279635,
-      "liquidity_usd":3882249.39920912,
-      "price_usd":0.26948748250381777,
-      "momentum_5m":0.23940551161518958,
+      "organic_score":74.91317493514087,
+      "liquidity_usd":3881797.837521745,
+      "price_usd":0.26964148236840063,
+      "momentum_5m":0.23494798767995684,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
@@ -1149,36 +1168,18 @@
       }
     },
     {
-      "at_utc":"2026-11-19T19:14:30+00:00",
-      "mint":"EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-      "symbol":"$WIF",
-      "name":"dogwifhat",
-      "organic_score":71.51159733623945,
-      "liquidity_usd":4175124.976012766,
-      "price_usd":0.13209144346896445,
-      "momentum_5m":0.2236513440381523,
-      "audit":{
-        "mintAuthorityDisabled":true,
-        "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":33.06037694067726,
-        "devBalancePercentage":3.820144703226851e-06,
-        "devMigrations":3,
-        "devMints":15
-      }
-    },
-    {
-      "at_utc":"2026-11-19T19:14:30+00:00",
+      "at_utc":"2026-11-19T19:30:56+00:00",
       "mint":"ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg",
       "symbol":"CYBERLEEK",
       "name":"CyberLeek",
-      "organic_score":64.6495542714799,
-      "liquidity_usd":202597.1519875218,
-      "price_usd":0.0020314635295774113,
-      "momentum_5m":2.388044971914225,
+      "organic_score":71.15658441108724,
+      "liquidity_usd":192364.04424395098,
+      "price_usd":0.0018256333693284796,
+      "momentum_5m":-2.738704171190851,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":18.353261637295343,
+        "topHoldersPercentage":18.081564744726204,
         "devMints":2
       }
     }
@@ -1452,6 +1453,10 @@
       {
         "at":"2026-11-19T19:15:31+00:00",
         "equity":943.07
+      },
+      {
+        "at":"2026-11-19T19:31:05+00:00",
+        "equity":846.67
       }
     ],
     "groq_gptoss":[
@@ -1722,6 +1727,10 @@
       {
         "at":"2026-11-19T19:15:34+00:00",
         "equity":2062.17
+      },
+      {
+        "at":"2026-11-19T19:31:05+00:00",
+        "equity":1851.24
       }
     ],
     "groq_qwen":[
@@ -1992,6 +2001,10 @@
       {
         "at":"2026-11-19T19:15:36+00:00",
         "equity":755.59
+      },
+      {
+        "at":"2026-11-19T19:31:05+00:00",
+        "equity":761.54
       }
     ],
     "momentum_baseline":[
@@ -2262,10 +2275,14 @@
       {
         "at":"2026-11-19T19:15:36+00:00",
         "equity":911.45
+      },
+      {
+        "at":"2026-11-19T19:31:05+00:00",
+        "equity":910.54
       }
     ]
   },
   "total_trades":38,
-  "asof_utc":"2026-11-19T19:15:37.008455+00:00",
+  "asof_utc":"2026-11-19T19:31:06.348587+00:00",
   "next_required":[]
 }
