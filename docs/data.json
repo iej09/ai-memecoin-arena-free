@@ -11,27 +11,27 @@
     "deadline":1795478631.4168396,
     "start_fx_cad_per_usd":1.4285,
     "finished":false,
-    "last_heartbeat":"2026-11-19T22:22:17+00:00",
+    "last_ai_round_at":1795126955.3665726,
+    "last_heartbeat":"2026-11-19T22:38:03+00:00",
     "fx_status":"CURRENT",
     "last_fx":1.43,
-    "last_market_utc":"2026-11-19T22:22:22+00:00",
+    "last_market_utc":"2026-11-19T22:38:07+00:00",
     "last_market_status":"OK",
-    "last_candidate_count":6,
-    "last_ai_round_at":1795126955.3665726,
-    "iteration":79,
-    "last_healthy_tick":"2026-11-19T22:22:35+00:00",
-    "last_completed_tick":"2026-11-19T22:22:35+00:00"
+    "last_candidate_count":7,
+    "iteration":80,
+    "last_healthy_tick":"2026-11-19T22:38:27+00:00",
+    "last_completed_tick":"2026-11-19T22:38:27+00:00"
   },
   "scoreboard":[
     {
       "agent":"groq_gptoss",
       "name":"GPT-OSS 120B (Groq Free)",
       "last_decision":"HOLD",
-      "last_decision_health":"REJECTED",
-      "last_decision_at":"2026-11-19T22:22:33+00:00",
-      "nav_cad":1789.48,
-      "pnl_cad":789.48,
-      "return_pct":78.95,
+      "last_decision_health":"API_ERROR",
+      "last_decision_at":"2026-11-19T22:38:27+00:00",
+      "nav_cad":1848.82,
+      "pnl_cad":848.82,
+      "return_pct":84.88,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -65,9 +65,9 @@
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-19T22:22:29+00:00",
-      "nav_cad":818.05,
-      "pnl_cad":-181.95,
-      "return_pct":-18.19,
+      "nav_cad":845.2,
+      "pnl_cad":-154.8,
+      "return_pct":-15.48,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -87,9 +87,9 @@
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-19T22:22:35+00:00",
-      "nav_cad":753.44,
-      "pnl_cad":-246.56,
-      "return_pct":-24.66,
+      "nav_cad":763.38,
+      "pnl_cad":-236.62,
+      "return_pct":-23.66,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -458,6 +458,15 @@
     }
   ],
   "decisions":[
+    {
+      "at_utc":"2026-11-19T22:38:27+00:00",
+      "agent":"groq_gptoss",
+      "action":"HOLD",
+      "mint":"None",
+      "reason":"API failure",
+      "accepted":0,
+      "explanation":"429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions"
+    },
     {
       "at_utc":"2026-11-19T22:22:35+00:00",
       "agent":"momentum_baseline",
@@ -1033,61 +1042,70 @@
       "reason":"Fully invested in USELESS with no cash to deploy; 5m sell volume ($22.2k) dwarfs buy volume ($445) signaling short-term distribution pressure, and no candidate offers a compelling risk-adjusted switch without first liquidating.",
       "accepted":1,
       "explanation":"held cash/positions"
-    },
-    {
-      "at_utc":"2026-11-19T08:46:49+00:00",
-      "agent":"groq_gptoss",
-      "action":"HOLD",
-      "mint":"",
-      "reason":"Current holding CYBERLEEK is fully invested with positive unrealized gain and no cash to redeploy; no compelling reason to sell given no better alternative and research phase is over.",
-      "accepted":1,
-      "explanation":"held cash/positions"
     }
   ],
   "research":[
     {
-      "at_utc":"2026-11-19T22:22:22+00:00",
+      "at_utc":"2026-11-19T22:38:07+00:00",
       "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
       "symbol":"JUP",
       "name":"Jupiter",
-      "organic_score":97.33036610390599,
-      "liquidity_usd":5013244.114668995,
-      "price_usd":0.2500312837690223,
-      "momentum_5m":0.1903112457091755,
+      "organic_score":97.46024619454649,
+      "liquidity_usd":5027917.274411117,
+      "price_usd":0.25099994206527626,
+      "momentum_5m":0.1348555620574117,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":14.83751853615767,
+        "topHoldersPercentage":14.837585909070745,
         "devMints":1
       }
     },
     {
-      "at_utc":"2026-11-19T22:22:22+00:00",
-      "mint":"Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-      "symbol":"USELESS",
-      "name":"USELESS COIN",
-      "organic_score":79.96722401319514,
-      "liquidity_usd":1760790.6960655763,
-      "price_usd":0.09832338587369312,
-      "momentum_5m":0.4071164475745783,
+      "at_utc":"2026-11-19T22:38:07+00:00",
+      "mint":"6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
+      "symbol":"STONK",
+      "name":"STONK",
+      "organic_score":86.50468721100297,
+      "liquidity_usd":1463644.7581767857,
+      "price_usd":0.038420267059990465,
+      "momentum_5m":0.528237122031946,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":37.3415612985106,
-        "devBalancePercentage":2.4993990337551014e-06,
-        "devMigrations":200,
-        "devMints":815
+        "topHoldersPercentage":20.49590694348065,
+        "devBalancePercentage":0.0036748807336242396,
+        "devMigrations":11,
+        "devMints":8483
       }
     },
     {
-      "at_utc":"2026-11-19T22:22:22+00:00",
+      "at_utc":"2026-11-19T22:38:07+00:00",
+      "mint":"9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+      "symbol":"Fartcoin",
+      "name":"Fartcoin",
+      "organic_score":80.68786637669201,
+      "liquidity_usd":4358684.813172373,
+      "price_usd":0.0841941742972164,
+      "momentum_5m":0.04792633742795706,
+      "audit":{
+        "mintAuthorityDisabled":true,
+        "freezeAuthorityDisabled":true,
+        "topHoldersPercentage":35.29337803696729,
+        "devBalancePercentage":4.1339472578580765e-05,
+        "devMigrations":265,
+        "devMints":497
+      }
+    },
+    {
+      "at_utc":"2026-11-19T22:38:07+00:00",
       "mint":"ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg",
       "symbol":"CYBERLEEK",
       "name":"CyberLeek",
-      "organic_score":76.83697193614634,
-      "liquidity_usd":187468.39727229046,
-      "price_usd":0.001759956419774089,
-      "momentum_5m":-6.533864115542406,
+      "organic_score":76.76591740705867,
+      "liquidity_usd":191573.300549542,
+      "price_usd":0.0018191921286355812,
+      "momentum_5m":3.4859944468084962,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
@@ -1096,32 +1114,14 @@
       }
     },
     {
-      "at_utc":"2026-11-19T22:22:22+00:00",
-      "mint":"6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump",
-      "symbol":"VINE",
-      "name":"Vine Coin",
-      "organic_score":75.0,
-      "liquidity_usd":717291.5033414031,
-      "price_usd":0.00871980013246925,
-      "momentum_5m":0.20663634213685297,
-      "audit":{
-        "mintAuthorityDisabled":true,
-        "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":20.664465341170374,
-        "devBalancePercentage":4.956868492007223,
-        "devMigrations":1,
-        "devMints":1
-      }
-    },
-    {
-      "at_utc":"2026-11-19T22:22:22+00:00",
+      "at_utc":"2026-11-19T22:38:07+00:00",
       "mint":"METvsvVRapdj9cFLzq4Tr43xK4tAjQfwX76z3n6mWQL",
       "symbol":"MET",
       "name":"Meteora",
-      "organic_score":74.38421758058533,
-      "liquidity_usd":3806753.9597274303,
-      "price_usd":0.26415016947222,
-      "momentum_5m":0.05455988532205048,
+      "organic_score":74.3883355701563,
+      "liquidity_usd":3826085.830685445,
+      "price_usd":0.2662918595755275,
+      "momentum_5m":0.20399623220447344,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
@@ -1131,18 +1131,36 @@
       }
     },
     {
-      "at_utc":"2026-11-19T22:22:22+00:00",
-      "mint":"5k8yMkEzcekeufWvTk5zvuZ8xnx2PqNdxs86E9P2bvQf",
-      "symbol":"AI",
-      "name":"Anthropic Inu",
-      "organic_score":64.75713779272871,
-      "liquidity_usd":34151.981442121854,
-      "price_usd":0.0001255250021332256,
-      "momentum_5m":20.156267370281032,
+      "at_utc":"2026-11-19T22:38:07+00:00",
+      "mint":"ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82",
+      "symbol":"BOME",
+      "name":"BOOK OF MEME",
+      "organic_score":54.8583325652632,
+      "liquidity_usd":9977918.629352057,
+      "price_usd":0.0004968688541757473,
+      "momentum_5m":0.14841307703426865,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":24.371609953556653,
+        "topHoldersPercentage":15.889204674068816,
+        "devBalancePercentage":4.452782268724511e-05,
+        "devMints":1
+      }
+    },
+    {
+      "at_utc":"2026-11-19T22:38:07+00:00",
+      "mint":"6nR8wBnfsmXfcdDr1hovJKjvFQxNSidN6XFyfAFZpump",
+      "symbol":"Clash",
+      "name":"ClashProject",
+      "organic_score":51.99798481533688,
+      "liquidity_usd":114668.6730024281,
+      "price_usd":0.0049836749048915215,
+      "momentum_5m":13.113958289477623,
+      "audit":{
+        "mintAuthorityDisabled":true,
+        "freezeAuthorityDisabled":true,
+        "topHoldersPercentage":24.604542447845688,
+        "devBalancePercentage":4.023422213953642,
         "devMigrations":1,
         "devMints":1
       }
@@ -1465,6 +1483,10 @@
       {
         "at":"2026-11-19T22:22:35+00:00",
         "equity":818.05
+      },
+      {
+        "at":"2026-11-19T22:38:27+00:00",
+        "equity":845.2
       }
     ],
     "groq_gptoss":[
@@ -1783,6 +1805,10 @@
       {
         "at":"2026-11-19T22:22:35+00:00",
         "equity":1789.48
+      },
+      {
+        "at":"2026-11-19T22:38:27+00:00",
+        "equity":1848.82
       }
     ],
     "groq_qwen":[
@@ -2101,6 +2127,10 @@
       {
         "at":"2026-11-19T22:22:35+00:00",
         "equity":753.44
+      },
+      {
+        "at":"2026-11-19T22:38:27+00:00",
+        "equity":763.38
       }
     ],
     "momentum_baseline":[
@@ -2419,10 +2449,14 @@
       {
         "at":"2026-11-19T22:22:35+00:00",
         "equity":907.92
+      },
+      {
+        "at":"2026-11-19T22:38:27+00:00",
+        "equity":907.92
       }
     ]
   },
   "total_trades":39,
-  "asof_utc":"2026-11-19T22:22:36.220637+00:00",
+  "asof_utc":"2026-11-19T22:38:28.540894+00:00",
   "next_required":[]
 }
