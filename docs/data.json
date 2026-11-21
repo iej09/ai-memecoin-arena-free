@@ -11,41 +11,49 @@
     "deadline":1795478631.4168396,
     "start_fx_cad_per_usd":1.4285,
     "finished":false,
-    "last_ai_round_at":1795291544.0745528,
-    "last_heartbeat":"2026-11-21T20:51:56+00:00",
+    "last_heartbeat":"2026-11-21T21:07:25+00:00",
     "fx_status":"CURRENT",
     "last_fx":1.4307,
-    "last_market_utc":"2026-11-21T20:52:01+00:00",
+    "last_market_utc":"2026-11-21T21:07:29+00:00",
     "last_market_status":"OK",
-    "last_candidate_count":6,
-    "iteration":258,
-    "last_healthy_tick":"2026-11-21T20:52:07+00:00",
-    "last_completed_tick":"2026-11-21T20:52:07+00:00"
+    "last_candidate_count":5,
+    "last_ai_round_at":1795295271.6164966,
+    "iteration":259,
+    "last_healthy_tick":"2026-11-21T21:07:56+00:00",
+    "last_completed_tick":"2026-11-21T21:07:56+00:00"
   },
   "scoreboard":[
     {
       "agent":"momentum_baseline",
       "name":"Momentum Control",
-      "last_decision":"SELL",
+      "last_decision":"BUY",
       "last_decision_health":"OK",
-      "last_decision_at":"2026-11-21T20:05:44+00:00",
-      "nav_cad":1061.7,
-      "pnl_cad":61.7,
-      "return_pct":6.17,
-      "cash_usd":742.09,
-      "exposure_pct":0.0,
+      "last_decision_at":"2026-11-21T21:07:49+00:00",
+      "nav_cad":1056.63,
+      "pnl_cad":56.63,
+      "return_pct":5.66,
+      "cash_usd":653.01,
+      "exposure_pct":11.58,
       "unsellable":0,
-      "holdings":[]
+      "holdings":[
+        {
+          "symbol":"FLOAT",
+          "mint":"Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
+          "quantity_raw":25567852172,
+          "decimals":6,
+          "cost_usd":89.08
+        }
+      ]
     },
     {
       "agent":"gemini_free",
       "name":"Gemini Flash (Free)",
       "last_decision":"HOLD",
       "last_decision_health":"OK",
-      "last_decision_at":"2026-11-21T20:05:32+00:00",
-      "nav_cad":943.41,
-      "pnl_cad":-56.59,
-      "return_pct":-5.66,
+      "last_decision_at":"2026-11-21T21:07:37+00:00",
+      "nav_cad":943.99,
+      "pnl_cad":-56.01,
+      "return_pct":-5.6,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -60,14 +68,28 @@
       ]
     },
     {
+      "agent":"groq_gptoss",
+      "name":"GPT-OSS 120B (Groq Free)",
+      "last_decision":"SELL",
+      "last_decision_health":"OK",
+      "last_decision_at":"2026-11-21T21:07:42+00:00",
+      "nav_cad":657.74,
+      "pnl_cad":-342.26,
+      "return_pct":-34.23,
+      "cash_usd":459.73,
+      "exposure_pct":0.0,
+      "unsellable":0,
+      "holdings":[]
+    },
+    {
       "agent":"groq_qwen",
       "name":"Qwen 3.8 27B (Groq Free)",
       "last_decision":"HOLD",
       "last_decision_health":"OK",
-      "last_decision_at":"2026-11-21T20:05:43+00:00",
-      "nav_cad":619.81,
-      "pnl_cad":-380.19,
-      "return_pct":-38.02,
+      "last_decision_at":"2026-11-21T21:07:46+00:00",
+      "nav_cad":621.92,
+      "pnl_cad":-378.08,
+      "return_pct":-37.81,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -80,31 +102,27 @@
           "cost_usd":522.51017707
         }
       ]
-    },
-    {
-      "agent":"groq_gptoss",
-      "name":"GPT-OSS 120B (Groq Free)",
-      "last_decision":"HOLD",
-      "last_decision_health":"OK",
-      "last_decision_at":"2026-11-21T20:05:41+00:00",
-      "nav_cad":603.56,
-      "pnl_cad":-396.44,
-      "return_pct":-39.64,
-      "cash_usd":0.0,
-      "exposure_pct":100.0,
-      "unsellable":0,
-      "holdings":[
-        {
-          "symbol":"Rings",
-          "mint":"65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring",
-          "quantity_raw":160105904880,
-          "decimals":6,
-          "cost_usd":526.0374778350001
-        }
-      ]
     }
   ],
   "trades":[
+    {
+      "at_utc":"2026-11-21T21:07:49+00:00",
+      "agent":"momentum_baseline",
+      "side":"BUY",
+      "mint":"Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
+      "symbol":"FLOAT",
+      "usd_amount":-89.08,
+      "note":"Jupiter quote-only; conservative adverse-fill haircut"
+    },
+    {
+      "at_utc":"2026-11-21T21:07:42+00:00",
+      "agent":"groq_gptoss",
+      "side":"SELL",
+      "mint":"65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring",
+      "symbol":"Rings",
+      "usd_amount":459.73112359500004,
+      "note":"AI/baseline requested exit"
+    },
     {
       "at_utc":"2026-11-21T20:05:44+00:00",
       "agent":"momentum_baseline",
@@ -671,27 +689,45 @@
       "symbol":"VINE",
       "usd_amount":-989.858873055,
       "note":"Jupiter quote-only; conservative adverse-fill haircut"
-    },
-    {
-      "at_utc":"2026-11-19T15:02:21+00:00",
-      "agent":"momentum_baseline",
-      "side":"BUY",
-      "mint":"H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS",
-      "symbol":"BAGSPAY",
-      "usd_amount":-78.03,
-      "note":"Jupiter quote-only; conservative adverse-fill haircut"
-    },
-    {
-      "at_utc":"2026-11-19T15:02:14+00:00",
-      "agent":"groq_gptoss",
-      "side":"SELL",
-      "mint":"65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring",
-      "symbol":"Rings",
-      "usd_amount":989.858873055,
-      "note":"AI/baseline requested exit"
     }
   ],
   "decisions":[
+    {
+      "at_utc":"2026-11-21T21:07:49+00:00",
+      "agent":"momentum_baseline",
+      "action":"BUY",
+      "mint":"Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
+      "reason":"Rule-based organic momentum entry",
+      "accepted":1,
+      "explanation":"paper buy filled at fresh size-specific quote; no on-chain trade"
+    },
+    {
+      "at_utc":"2026-11-21T21:07:46+00:00",
+      "agent":"groq_qwen",
+      "action":"HOLD",
+      "mint":"",
+      "reason":"Fully invested in USELESS with no cash to deploy, and the deep-research risk profile for FLOAT (top holder 5.86%, no insiders, no flagged risks) is acceptable but not compelling enough to liquidate a losing position and switch with only ~51 hours remaining.",
+      "accepted":1,
+      "explanation":"held cash/positions"
+    },
+    {
+      "at_utc":"2026-11-21T21:07:42+00:00",
+      "agent":"groq_gptoss",
+      "action":"SELL",
+      "mint":"65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring",
+      "reason":"Rings show modest price change, limited liquidity and 23.5% top\u2011holder concentration; selling frees cash to pursue higher\u2011upside candidates.",
+      "accepted":1,
+      "explanation":"sell quote executed (paper)"
+    },
+    {
+      "at_utc":"2026-11-21T21:07:37+00:00",
+      "agent":"gemini_free",
+      "action":"HOLD",
+      "mint":"",
+      "reason":"Currently 100% allocated to JUP with stable positive performance, holding position.",
+      "accepted":1,
+      "explanation":"held cash/positions"
+    },
     {
       "at_utc":"2026-11-21T20:05:44+00:00",
       "agent":"momentum_baseline",
@@ -1240,70 +1276,34 @@
       "reason":"No baseline signal",
       "accepted":1,
       "explanation":"held cash/positions"
-    },
-    {
-      "at_utc":"2026-11-21T05:33:27+00:00",
-      "agent":"groq_qwen",
-      "action":"HOLD",
-      "mint":"",
-      "reason":"Fully invested in USELESS with no cash to deploy, and no candidate offers a compelling risk-adjusted switch given the 66-hour window and adverse-fill costs.",
-      "accepted":1,
-      "explanation":"held cash/positions"
-    },
-    {
-      "at_utc":"2026-11-21T05:33:19+00:00",
-      "agent":"groq_gptoss",
-      "action":"SELL",
-      "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-      "reason":"JUP is down 1% hourly with modest liquidity; PENGU shows strong upward momentum and better organic score, so reallocating out of JUP is prudent.",
-      "accepted":1,
-      "explanation":"sell quote executed (paper)"
-    },
-    {
-      "at_utc":"2026-11-21T05:33:15+00:00",
-      "agent":"gemini_free",
-      "action":"HOLD",
-      "mint":"",
-      "reason":"Currently holding CYBERLEEK with stable performance and adequate liquidity; holding position to let the market develop further.",
-      "accepted":1,
-      "explanation":"held cash/positions"
-    },
-    {
-      "at_utc":"2026-11-21T04:31:23+00:00",
-      "agent":"momentum_baseline",
-      "action":"HOLD",
-      "mint":"",
-      "reason":"No baseline signal",
-      "accepted":1,
-      "explanation":"held cash/positions"
     }
   ],
   "research":[
     {
-      "at_utc":"2026-11-21T20:52:01+00:00",
+      "at_utc":"2026-11-21T21:07:29+00:00",
       "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
       "symbol":"JUP",
       "name":"Jupiter",
-      "organic_score":97.96003098788117,
-      "liquidity_usd":4657829.684784644,
-      "price_usd":0.21729999650230322,
-      "momentum_5m":0.12096993592903656,
+      "organic_score":97.9872377629164,
+      "liquidity_usd":4663153.437110436,
+      "price_usd":0.21761020620066146,
+      "momentum_5m":-0.05379309083443532,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":14.866261628089521,
+        "topHoldersPercentage":14.866288641378059,
         "devMints":1
       }
     },
     {
-      "at_utc":"2026-11-21T20:52:01+00:00",
+      "at_utc":"2026-11-21T21:07:29+00:00",
       "mint":"METvsvVRapdj9cFLzq4Tr43xK4tAjQfwX76z3n6mWQL",
       "symbol":"MET",
       "name":"Meteora",
-      "organic_score":79.68900189264548,
-      "liquidity_usd":3101952.20791281,
-      "price_usd":0.2330494269907523,
-      "momentum_5m":-0.035346113788891916,
+      "organic_score":79.79984105355877,
+      "liquidity_usd":3097293.720475291,
+      "price_usd":0.2331035155405648,
+      "momentum_5m":-0.0673829021791418,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
@@ -1313,71 +1313,54 @@
       }
     },
     {
-      "at_utc":"2026-11-21T20:52:01+00:00",
-      "mint":"nosXBVoaCTtYdLvKY6Csb4AC8JCdQKKAaWYtx2ZMoo7",
-      "symbol":"NOS",
-      "name":"Nosana",
-      "organic_score":75.0,
-      "liquidity_usd":374446.28212085913,
-      "price_usd":0.3185526238961463,
-      "momentum_5m":0.17788207368961037,
-      "audit":{
-        "mintAuthorityDisabled":true,
-        "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":41.2907860236303,
-        "devMints":1
-      }
-    },
-    {
-      "at_utc":"2026-11-21T20:52:01+00:00",
+      "at_utc":"2026-11-21T21:07:29+00:00",
       "mint":"6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump",
       "symbol":"VINE",
       "name":"Vine Coin",
       "organic_score":75.0,
-      "liquidity_usd":736976.2674906645,
-      "price_usd":0.009239182305557718,
-      "momentum_5m":0.9537781612588505,
+      "liquidity_usd":758372.5867139706,
+      "price_usd":0.009666526272492988,
+      "momentum_5m":-1.0551644722619946,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":20.06247684745358,
+        "topHoldersPercentage":19.957133242847195,
         "devBalancePercentage":4.956868497798564,
         "devMigrations":1,
         "devMints":1
       }
     },
     {
-      "at_utc":"2026-11-21T20:52:01+00:00",
-      "mint":"Ce2gx9KGXJ6C9Mp5b5x1sn9Mg87JwEbrQby4Zqo3pump",
-      "symbol":"neet",
-      "name":"NotInEmploymentEducationTraining",
-      "organic_score":72.54957000997024,
-      "liquidity_usd":1181919.251091189,
-      "price_usd":0.02509398885578182,
-      "momentum_5m":0.1803619517014048,
+      "at_utc":"2026-11-21T21:07:29+00:00",
+      "mint":"65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring",
+      "symbol":"Rings",
+      "name":"Rings",
+      "organic_score":72.18232414948163,
+      "liquidity_usd":214241.04140446085,
+      "price_usd":0.0029550657154345087,
+      "momentum_5m":0.21019847047551474,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":17.339257160031206,
-        "devBalancePercentage":1.3048477617452696e-05,
-        "devMigrations":5,
-        "devMints":18
+        "topHoldersPercentage":23.493733140150283,
+        "devMigrations":1,
+        "devMints":1
       }
     },
     {
-      "at_utc":"2026-11-21T20:52:01+00:00",
+      "at_utc":"2026-11-21T21:07:29+00:00",
       "mint":"Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
       "symbol":"FLOAT",
       "name":"FLOAT",
-      "organic_score":72.3974305668718,
-      "liquidity_usd":320830.0143860879,
-      "price_usd":0.003338706239062584,
-      "momentum_5m":-2.6205195098321057,
+      "organic_score":72.1390800519188,
+      "liquidity_usd":324377.3477271009,
+      "price_usd":0.003379055663667233,
+      "momentum_5m":4.013352514720072,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":24.125500040244063,
-        "devBalancePercentage":1.174640803403238e-13,
+        "topHoldersPercentage":24.133435400834717,
+        "devBalancePercentage":1.1750271663106986e-13,
         "devMigrations":1,
         "devMints":1
       }
@@ -2416,6 +2399,10 @@
       {
         "at":"2026-11-21T20:52:07+00:00",
         "equity":943.41
+      },
+      {
+        "at":"2026-11-21T21:07:54+00:00",
+        "equity":943.99
       }
     ],
     "groq_gptoss":[
@@ -3450,6 +3437,10 @@
       {
         "at":"2026-11-21T20:52:07+00:00",
         "equity":603.56
+      },
+      {
+        "at":"2026-11-21T21:07:54+00:00",
+        "equity":657.74
       }
     ],
     "groq_qwen":[
@@ -4484,6 +4475,10 @@
       {
         "at":"2026-11-21T20:52:07+00:00",
         "equity":619.81
+      },
+      {
+        "at":"2026-11-21T21:07:56+00:00",
+        "equity":621.92
       }
     ],
     "momentum_baseline":[
@@ -5518,10 +5513,14 @@
       {
         "at":"2026-11-21T20:52:07+00:00",
         "equity":1061.7
+      },
+      {
+        "at":"2026-11-21T21:07:56+00:00",
+        "equity":1056.63
       }
     ]
   },
-  "total_trades":93,
-  "asof_utc":"2026-11-21T20:52:08.316698+00:00",
+  "total_trades":95,
+  "asof_utc":"2026-11-21T21:07:56.831511+00:00",
   "next_required":[]
 }
