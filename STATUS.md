@@ -3,16 +3,16 @@
 This is a **paper-only** simulation; no real crypto orders are sent.
 
 **Status:** LIVE
-**As of (UTC):** 2026-11-23T15:05:24.666478+00:00
+**As of (UTC):** 2026-11-23T15:21:38.466156+00:00
 
 | Competitor | Virtual CAD | Return | Exposure | Last decision |
 |---|---:|---:|---:|---|
-| Gemini Flash (Free) | $1,086.07 | +8.61% | 100.0% | HOLD |
-| Momentum Control | $974.76 | -2.52% | 0.0% | SELL |
-| Qwen 3.8 27B (Groq Free) | $662.90 | -33.71% | 100.0% | HOLD |
-| GPT-OSS 120B (Groq Free) | $403.84 | -59.62% | 100.0% | BUY |
+| Gemini Flash (Free) | $1,086.58 | +8.66% | 100.0% | REJECTED |
+| Momentum Control | $974.76 | -2.52% | 0.0% | HOLD |
+| Qwen 3.8 27B (Groq Free) | $668.27 | -33.17% | 100.0% | HOLD |
+| GPT-OSS 120B (Groq Free) | $404.30 | -59.57% | 100.0% | HOLD |
 
 **Market status:** OK
-**Last healthy scan:** 2026-11-23T15:05:24+00:00
+**Last healthy scan:** 2026-11-23T15:21:38+00:00
 
 GitHub Actions and data-provider outages may delay this snapshot.
