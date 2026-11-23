@@ -12,15 +12,15 @@
     "start_fx_cad_per_usd":1.4285,
     "finished":false,
     "last_ai_round_at":1795469727.4243321,
-    "last_heartbeat":"2026-11-23T22:06:19+00:00",
+    "last_heartbeat":"2026-11-23T22:21:45+00:00",
     "fx_status":"CURRENT",
     "last_fx":1.4362,
-    "last_market_utc":"2026-11-23T22:06:24+00:00",
+    "last_market_utc":"2026-11-23T22:21:49+00:00",
     "last_market_status":"OK",
     "last_candidate_count":5,
-    "iteration":419,
-    "last_healthy_tick":"2026-11-23T22:06:30+00:00",
-    "last_completed_tick":"2026-11-23T22:06:30+00:00"
+    "iteration":420,
+    "last_healthy_tick":"2026-11-23T22:21:56+00:00",
+    "last_completed_tick":"2026-11-23T22:21:56+00:00"
   },
   "scoreboard":[
     {
@@ -29,9 +29,9 @@
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-23T21:35:16+00:00",
-      "nav_cad":1029.29,
-      "pnl_cad":29.29,
-      "return_pct":2.93,
+      "nav_cad":1026.57,
+      "pnl_cad":26.57,
+      "return_pct":2.66,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -65,9 +65,9 @@
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-23T21:35:27+00:00",
-      "nav_cad":594.93,
-      "pnl_cad":-405.07,
-      "return_pct":-40.51,
+      "nav_cad":592.38,
+      "pnl_cad":-407.62,
+      "return_pct":-40.76,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -87,9 +87,9 @@
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-23T21:35:22+00:00",
-      "nav_cad":382.65,
-      "pnl_cad":-617.35,
-      "return_pct":-61.73,
+      "nav_cad":381.59,
+      "pnl_cad":-618.41,
+      "return_pct":-61.84,
       "cash_usd":0.0,
       "exposure_pct":100.0,
       "unsellable":0,
@@ -1280,97 +1280,92 @@
   ],
   "research":[
     {
-      "at_utc":"2026-11-23T22:06:24+00:00",
+      "at_utc":"2026-11-23T22:21:49+00:00",
       "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
       "symbol":"JUP",
       "name":"Jupiter",
-      "organic_score":99.42873841374059,
-      "liquidity_usd":4349443.250063665,
-      "price_usd":0.2366436930095511,
-      "momentum_5m":-0.2385856239760308,
+      "organic_score":99.39413320350893,
+      "liquidity_usd":4331494.451005362,
+      "price_usd":0.2359792683684776,
+      "momentum_5m":0.06733024589897256,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":14.858626487523763,
+        "topHoldersPercentage":14.85896197013562,
         "devMints":1
       }
     },
     {
-      "at_utc":"2026-11-23T22:06:24+00:00",
+      "at_utc":"2026-11-23T22:21:49+00:00",
       "mint":"Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
       "symbol":"USELESS",
       "name":"USELESS COIN",
-      "organic_score":83.73784909393606,
-      "liquidity_usd":1514379.4948996753,
-      "price_usd":0.07742037945887871,
-      "momentum_5m":-0.2182911918387644,
+      "organic_score":83.8324489265658,
+      "liquidity_usd":1505813.752378036,
+      "price_usd":0.07711745259115096,
+      "momentum_5m":0.20181925514156684,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":38.09168550537857,
+        "topHoldersPercentage":38.083000168997145,
         "devBalancePercentage":2.499399080861724e-06,
         "devMigrations":200,
         "devMints":815
       }
     },
     {
-      "at_utc":"2026-11-23T22:06:24+00:00",
+      "at_utc":"2026-11-23T22:21:49+00:00",
       "mint":"METvsvVRapdj9cFLzq4Tr43xK4tAjQfwX76z3n6mWQL",
       "symbol":"MET",
       "name":"Meteora",
-      "organic_score":82.99391048881273,
-      "liquidity_usd":2770738.9753522053,
-      "price_usd":0.2191830540050886,
-      "momentum_5m":-0.29100396222101754,
+      "organic_score":82.97978302235599,
+      "liquidity_usd":2739940.4274697523,
+      "price_usd":0.21822734997843687,
+      "momentum_5m":0.07806361297646273,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":29.13179503058662,
+        "topHoldersPercentage":29.13831219058352,
         "devMigrations":1,
         "devMints":5
       }
     },
     {
-      "at_utc":"2026-11-23T22:06:24+00:00",
+      "at_utc":"2026-11-23T22:21:49+00:00",
       "mint":"2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv",
       "symbol":"PENGU",
       "name":"Pudgy Penguins",
-      "organic_score":80.61567377453551,
-      "liquidity_usd":1433464.8226564787,
-      "price_usd":0.004414910623193601,
-      "momentum_5m":-0.07792853120709338,
+      "organic_score":80.78459914321476,
+      "liquidity_usd":1432577.1800696494,
+      "price_usd":0.004400708968092297,
+      "momentum_5m":0.10146049343796114,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":36.96709269058015,
+        "topHoldersPercentage":36.9670926906821,
         "devMints":1
       }
     },
     {
-      "at_utc":"2026-11-23T22:06:24+00:00",
-      "mint":"EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-      "symbol":"$WIF",
-      "name":"dogwifhat",
-      "organic_score":75.0,
-      "liquidity_usd":4001303.595033882,
-      "price_usd":0.12503547638715135,
-      "momentum_5m":-0.11650854311419133,
+      "at_utc":"2026-11-23T22:21:49+00:00",
+      "mint":"65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring",
+      "symbol":"Rings",
+      "name":"Rings",
+      "organic_score":74.81804772083791,
+      "liquidity_usd":204850.50330297084,
+      "price_usd":0.0025521029960398293,
+      "momentum_5m":1.0525355802896885,
       "audit":{
         "mintAuthorityDisabled":true,
         "freezeAuthorityDisabled":true,
-        "topHoldersPercentage":33.0274128448383,
-        "devBalancePercentage":3.8201449024013485e-06,
-        "devMigrations":3,
-        "devMints":15
+        "topHoldersPercentage":22.76617778040947,
+        "devMigrations":1,
+        "devMints":1
       }
     }
   ],
   "history":{
     "gemini_free":[
-      {
-        "at":"2026-11-18T23:33:21+00:00",
-        "equity":959.0
-      },
       {
         "at":"2026-11-18T23:48:51+00:00",
         "equity":966.71
@@ -2966,13 +2961,13 @@
       {
         "at":"2026-11-23T22:06:30+00:00",
         "equity":1029.29
+      },
+      {
+        "at":"2026-11-23T22:21:56+00:00",
+        "equity":1026.57
       }
     ],
     "groq_gptoss":[
-      {
-        "at":"2026-11-18T23:33:21+00:00",
-        "equity":877.03
-      },
       {
         "at":"2026-11-18T23:48:51+00:00",
         "equity":890.68
@@ -4568,13 +4563,13 @@
       {
         "at":"2026-11-23T22:06:30+00:00",
         "equity":382.65
+      },
+      {
+        "at":"2026-11-23T22:21:56+00:00",
+        "equity":381.59
       }
     ],
     "groq_qwen":[
-      {
-        "at":"2026-11-18T23:33:21+00:00",
-        "equity":747.45
-      },
       {
         "at":"2026-11-18T23:48:51+00:00",
         "equity":747.45
@@ -6170,13 +6165,13 @@
       {
         "at":"2026-11-23T22:06:30+00:00",
         "equity":594.93
+      },
+      {
+        "at":"2026-11-23T22:21:56+00:00",
+        "equity":592.38
       }
     ],
     "momentum_baseline":[
-      {
-        "at":"2026-11-18T23:33:21+00:00",
-        "equity":977.33
-      },
       {
         "at":"2026-11-18T23:48:51+00:00",
         "equity":974.58
@@ -7772,10 +7767,14 @@
       {
         "at":"2026-11-23T22:06:30+00:00",
         "equity":969.89
+      },
+      {
+        "at":"2026-11-23T22:21:56+00:00",
+        "equity":969.89
       }
     ]
   },
   "total_trades":145,
-  "asof_utc":"2026-11-23T22:06:31.664456+00:00",
+  "asof_utc":"2026-11-23T22:21:56.931913+00:00",
   "next_required":[]
 }
