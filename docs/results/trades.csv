@@ -1,0 +1,149 @@
+at_utc,agent,side,mint,symbol,quantity_raw,usd_amount,note
+2026-11-17T00:15:07+00:00,gemini_free,BUY,6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx,STONK,16466277117268,-700.035002,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-17T00:15:18+00:00,groq_qwen,BUY,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,22253030853897,-350.03,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-17T00:15:24+00:00,momentum_baseline,BUY,2FcsqRrhvgSfYxJWh32xW873vyqBZ9jmMyXqYSPgNtuZ,Lucia,203163620270,-84.03,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-17T00:19:05+00:00,groq_gptoss,BUY,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,45318986616499,-700.035002,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-17T11:00:52+00:00,momentum_baseline,SELL,2FcsqRrhvgSfYxJWh32xW873vyqBZ9jmMyXqYSPgNtuZ,Lucia,-203163620270,89.58628491,AI/baseline requested exit
+2026-11-17T19:50:04+00:00,groq_gptoss,SELL,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,-45318986616499,747.528420025,AI/baseline requested exit
+2026-11-17T19:50:13+00:00,momentum_baseline,BUY,2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv,PENGU,16639986944,-84.7,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-18T02:00:56+00:00,momentum_baseline,SELL,2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv,PENGU,-16639986944,78.97841678,AI/baseline requested exit
+2026-11-18T10:07:15+00:00,groq_gptoss,BUY,Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk,USELESS,7573259671,-747.528420025,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-18T18:51:06+00:00,groq_qwen,SELL,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,-22253030853897,172.50517507,hard -35% drawdown stop
+2026-11-18T18:51:17+00:00,groq_gptoss,SELL,Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk,USELESS,-7573259671,718.7755299099999,AI/baseline requested exit
+2026-11-18T21:13:41+00:00,groq_gptoss,BUY,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,84204086266673,-718.7755299099999,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-18T21:13:48+00:00,momentum_baseline,BUY,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,49603417630,-84.01,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-18T22:15:52+00:00,groq_gptoss,SELL,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,-84204086266673,617.1832996300001,AI/baseline requested exit
+2026-11-18T22:15:57+00:00,momentum_baseline,SELL,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,-49603417630,72.378986745,AI/baseline requested exit
+2026-11-18T23:17:42+00:00,groq_gptoss,BUY,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,487294558423573,-617.1832996300001,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-18T23:17:48+00:00,momentum_baseline,BUY,GM8EysYT8NRSsoULdeYShbRsUdhoUoiB9EN4eW3YETCH,ETCHY,87145599699,-82.62,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T00:20:06+00:00,groq_qwen,BUY,Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk,USELESS,5392627711,-522.51017707,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T00:20:12+00:00,momentum_baseline,SELL,GM8EysYT8NRSsoULdeYShbRsUdhoUoiB9EN4eW3YETCH,ETCHY,-87145599699,77.257213045,AI/baseline requested exit
+2026-11-19T09:49:03+00:00,gemini_free,SELL,6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx,STONK,-16466277117268,676.7476711800001,AI/baseline requested exit
+2026-11-19T09:49:19+00:00,momentum_baseline,BUY,DQnkBM4eYYMnVE8Qy2K3BB7uts1fh2EwBVktEz6jpump,DJI6930,29030968566,-81.98,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T10:51:31+00:00,groq_gptoss,SELL,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,-487294558423573,680.5316253350001,AI/baseline requested exit
+2026-11-19T10:51:37+00:00,momentum_baseline,SELL,DQnkBM4eYYMnVE8Qy2K3BB7uts1fh2EwBVktEz6jpump,DJI6930,-29030968566,76.3294641,AI/baseline requested exit
+2026-11-19T11:53:36+00:00,groq_gptoss,BUY,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,173780370304763,-680.5316253350001,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T11:53:53+00:00,momentum_baseline,BUY,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,20819754432689,-81.3,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T13:11:53+00:00,groq_gptoss,SELL,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,-173780370304763,639.7320941050001,AI/baseline requested exit
+2026-11-19T13:58:50+00:00,groq_gptoss,BUY,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,872483680122,-639.7320941050001,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T13:58:59+00:00,momentum_baseline,SELL,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,-20819754432689,54.06113326,AI/baseline requested exit
+2026-11-19T15:02:14+00:00,groq_gptoss,SELL,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,-872483680122,989.858873055,AI/baseline requested exit
+2026-11-19T15:02:21+00:00,momentum_baseline,BUY,H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS,BAGSPAY,206181195600997,-78.03,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T16:05:39+00:00,groq_gptoss,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,141876710748,-989.858873055,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T16:05:48+00:00,momentum_baseline,SELL,H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS,BAGSPAY,-206181195600997,75.189145345,AI/baseline requested exit
+2026-11-19T17:08:43+00:00,momentum_baseline,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,6808057538,-77.69,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T18:12:13+00:00,momentum_baseline,BUY,463SK47VkB7uE7XenTHKiVcMtxRsfNE2X4Q9wByaURVA,TSUKI,28872303676252,-76.92,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T18:28:10+00:00,groq_gptoss,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-141876710748,1488.9097009500001,AI/baseline requested exit
+2026-11-19T19:14:42+00:00,gemini_free,BUY,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,329044972346651,-676.7476711800001,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T19:15:08+00:00,groq_gptoss,BUY,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,722452486612366,-1488.9097009500001,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T19:15:27+00:00,momentum_baseline,SELL,463SK47VkB7uE7XenTHKiVcMtxRsfNE2X4Q9wByaURVA,TSUKI,-28872303676252,77.953482205,AI/baseline requested exit
+2026-11-19T20:17:59+00:00,momentum_baseline,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-6808057538,64.416572875,AI/baseline requested exit
+2026-11-19T22:53:59+00:00,groq_gptoss,SELL,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,-722452486612366,1287.205811335,AI/baseline requested exit
+2026-11-19T23:25:17+00:00,groq_gptoss,BUY,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,1011454548904,-1287.205811335,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-19T23:25:34+00:00,momentum_baseline,BUY,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,60702487548,-76.22,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T00:27:47+00:00,groq_gptoss,SELL,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,-1011454548904,1132.5833347050002,AI/baseline requested exit
+2026-11-20T00:27:54+00:00,momentum_baseline,SELL,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,-60702487548,68.896333515,AI/baseline requested exit
+2026-11-20T01:29:52+00:00,groq_gptoss,BUY,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,4561844635,-1132.5833347050002,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T01:30:00+00:00,momentum_baseline,BUY,H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS,BAGSPAY,229030126929765,-75.34,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T02:32:22+00:00,momentum_baseline,SELL,H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS,BAGSPAY,-229030126929765,79.207532445,AI/baseline requested exit
+2026-11-20T03:34:43+00:00,momentum_baseline,BUY,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,37562614213352,-75.8,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T04:37:20+00:00,momentum_baseline,SELL,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,-37562614213352,80.52407764,AI/baseline requested exit
+2026-11-20T07:43:13+00:00,momentum_baseline,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,8131768689,-76.37,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T08:45:25+00:00,momentum_baseline,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-8131768689,71.49680084,AI/baseline requested exit
+2026-11-20T09:47:44+00:00,momentum_baseline,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,8152763216,-75.79,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T10:50:16+00:00,groq_gptoss,SELL,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,-4561844635,1035.85600668,AI/baseline requested exit
+2026-11-20T11:52:30+00:00,groq_gptoss,BUY,463SK47VkB7uE7XenTHKiVcMtxRsfNE2X4Q9wByaURVA,TSUKI,326125289040261,-1035.85600668,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T11:52:39+00:00,momentum_baseline,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-8152763216,68.99476587999999,AI/baseline requested exit
+2026-11-20T12:54:54+00:00,groq_gptoss,SELL,463SK47VkB7uE7XenTHKiVcMtxRsfNE2X4Q9wByaURVA,TSUKI,-326125289040261,1011.226764715,AI/baseline requested exit
+2026-11-20T13:57:05+00:00,groq_gptoss,BUY,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,392815781238927,-1011.226764715,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T13:57:14+00:00,momentum_baseline,BUY,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,29250893735774,-74.97,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T14:59:36+00:00,momentum_baseline,SELL,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,-29250893735774,82.53242743,AI/baseline requested exit
+2026-11-20T16:02:13+00:00,groq_gptoss,SELL,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,-392815781238927,811.691064675,AI/baseline requested exit
+2026-11-20T17:04:42+00:00,groq_gptoss,BUY,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,3676382774,-811.691064675,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T20:12:26+00:00,momentum_baseline,BUY,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,30737552534,-75.88,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T21:15:03+00:00,momentum_baseline,SELL,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,-30737552534,92.84254777999999,AI/baseline requested exit
+2026-11-20T22:17:09+00:00,momentum_baseline,BUY,BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX,Trader,392846614765,-77.91,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-20T23:19:26+00:00,momentum_baseline,SELL,BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX,Trader,-392846614765,150.74380469,AI/baseline requested exit
+2026-11-21T00:21:59+00:00,momentum_baseline,BUY,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,36847217133,-86.65,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T01:24:11+00:00,momentum_baseline,SELL,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,-36847217133,83.172796495,AI/baseline requested exit
+2026-11-21T02:26:26+00:00,groq_gptoss,SELL,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,-3676382774,828.09183574,AI/baseline requested exit
+2026-11-21T02:26:39+00:00,momentum_baseline,BUY,BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX,Trader,407394521282,-86.24,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T03:28:45+00:00,groq_gptoss,BUY,BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX,Trader,2126499246685,-828.09183574,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T03:28:54+00:00,momentum_baseline,SELL,BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX,Trader,-407394521282,152.03533061,AI/baseline requested exit
+2026-11-21T04:15:26+00:00,groq_gptoss,SELL,BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX,Trader,-2126499246685,464.98781904000003,hard -35% drawdown stop
+2026-11-21T04:31:09+00:00,groq_gptoss,BUY,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,2185847346,-464.98781904000003,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T05:33:19+00:00,groq_gptoss,SELL,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,-2185847346,458.00269019,AI/baseline requested exit
+2026-11-21T07:37:29+00:00,momentum_baseline,BUY,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,25664826018,-94.13,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T07:53:29+00:00,groq_gptoss,BUY,BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX,Trader,2443002343636,-458.00269019,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T08:40:13+00:00,gemini_free,SELL,ApZuxdpzMrbEYTGEzeY9afh5pj9d6qPRJCTgQYiipbKg,CYBERLEEK,-329044972346651,650.0311221950001,AI/baseline requested exit
+2026-11-21T08:40:25+00:00,momentum_baseline,SELL,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,-25664826018,84.471181945,AI/baseline requested exit
+2026-11-21T09:42:10+00:00,gemini_free,BUY,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,3048577437,-650.0311221950001,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T09:42:20+00:00,momentum_baseline,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,12144859224,-92.97,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T10:44:35+00:00,groq_gptoss,SELL,BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX,Trader,-2443002343636,461.79477648000005,AI/baseline requested exit
+2026-11-21T11:47:03+00:00,groq_gptoss,BUY,METvsvVRapdj9cFLzq4Tr43xK4tAjQfwX76z3n6mWQL,MET,2012764049,-461.79477648000005,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T11:47:18+00:00,momentum_baseline,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-12144859224,84.636632535,AI/baseline requested exit
+2026-11-21T13:05:43+00:00,groq_gptoss,SELL,METvsvVRapdj9cFLzq4Tr43xK4tAjQfwX76z3n6mWQL,MET,-2012764049,458.44307719000005,AI/baseline requested exit
+2026-11-21T13:52:17+00:00,momentum_baseline,BUY,nosXBVoaCTtYdLvKY6Csb4AC8JCdQKKAaWYtx2ZMoo7,NOS,292290635,-91.97,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T14:54:29+00:00,groq_gptoss,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,59186592779,-458.44307719000005,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T14:54:38+00:00,momentum_baseline,SELL,nosXBVoaCTtYdLvKY6Csb4AC8JCdQKKAaWYtx2ZMoo7,NOS,-292290635,91.907547275,AI/baseline requested exit
+2026-11-21T15:56:34+00:00,momentum_baseline,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,8898602118,-91.97,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T16:58:45+00:00,groq_gptoss,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-59186592779,526.0374778350001,AI/baseline requested exit
+2026-11-21T18:00:49+00:00,momentum_baseline,BUY,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,31863867181,-90.18,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T19:03:06+00:00,groq_gptoss,BUY,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,160105904880,-526.0374778350001,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T19:03:24+00:00,momentum_baseline,SELL,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,-31863867181,85.61197233,AI/baseline requested exit
+2026-11-21T20:05:44+00:00,momentum_baseline,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-8898602118,72.49707434,AI/baseline requested exit
+2026-11-21T21:07:42+00:00,groq_gptoss,SELL,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,-160105904880,459.73112359500004,AI/baseline requested exit
+2026-11-21T21:07:49+00:00,momentum_baseline,BUY,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,25567852172,-89.08,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-21T22:10:11+00:00,momentum_baseline,SELL,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,-25567852172,78.051360355,AI/baseline requested exit
+2026-11-21T22:26:01+00:00,groq_gptoss,BUY,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,2098216980,-459.73112359500004,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T00:14:30+00:00,groq_gptoss,SELL,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,-2098216980,453.30089231500006,AI/baseline requested exit
+2026-11-22T01:16:26+00:00,groq_gptoss,BUY,6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx,STONK,12895629185921,-453.30089231500006,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T02:18:29+00:00,groq_gptoss,SELL,6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx,STONK,-12895629185921,441.81077858000003,AI/baseline requested exit
+2026-11-22T03:20:16+00:00,groq_gptoss,BUY,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,109604888863,-441.81077858000003,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T03:20:25+00:00,momentum_baseline,BUY,GM8EysYT8NRSsoULdeYShbRsUdhoUoiB9EN4eW3YETCH,ETCHY,174972928179,-87.76,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T04:22:32+00:00,groq_gptoss,SELL,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,-109604888863,397.83851572500004,AI/baseline requested exit
+2026-11-22T04:22:39+00:00,momentum_baseline,SELL,GM8EysYT8NRSsoULdeYShbRsUdhoUoiB9EN4eW3YETCH,ETCHY,-174972928179,94.07948800000001,AI/baseline requested exit
+2026-11-22T05:24:26+00:00,groq_gptoss,BUY,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,1836663779,-397.83851572500004,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T13:20:02+00:00,momentum_baseline,BUY,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,77821424918709,-88.52,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T14:22:22+00:00,momentum_baseline,SELL,4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz,GTA6,-77821424918709,85.746551055,AI/baseline requested exit
+2026-11-22T15:24:46+00:00,groq_gptoss,SELL,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,-1836663779,401.57243531000006,AI/baseline requested exit
+2026-11-22T17:28:55+00:00,groq_gptoss,BUY,BzPyyYCTmQNq2BcfQ4ANAvCYk54rnmQEXMFvFT8RhWMi,MCAT,1549039865084,-401.57243531000006,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T18:31:07+00:00,momentum_baseline,BUY,BzPyyYCTmQNq2BcfQ4ANAvCYk54rnmQEXMFvFT8RhWMi,MCAT,227528130472,-88.18,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T19:33:19+00:00,momentum_baseline,SELL,BzPyyYCTmQNq2BcfQ4ANAvCYk54rnmQEXMFvFT8RhWMi,MCAT,-227528130472,53.838700015,hard -35% drawdown stop
+2026-11-22T19:33:29+00:00,groq_gptoss,SELL,BzPyyYCTmQNq2BcfQ4ANAvCYk54rnmQEXMFvFT8RhWMi,MCAT,-1549039865084,361.160877465,AI/baseline requested exit
+2026-11-22T19:33:35+00:00,momentum_baseline,BUY,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,23088863601,-84.06,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T20:35:57+00:00,groq_gptoss,BUY,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,80109139826,-361.160877465,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T20:36:15+00:00,momentum_baseline,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,9125025071,-85.99,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T21:38:37+00:00,groq_gptoss,SELL,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,-80109139826,329.96029829500003,AI/baseline requested exit
+2026-11-22T21:38:53+00:00,momentum_baseline,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-9125025071,81.46777942,AI/baseline requested exit
+2026-11-22T22:40:58+00:00,groq_gptoss,BUY,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,102479856423,-329.96029829500003,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-22T22:41:14+00:00,momentum_baseline,SELL,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,-23088863601,93.49546678,AI/baseline requested exit
+2026-11-22T23:43:43+00:00,momentum_baseline,BUY,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,9155328658,-84.65,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T00:15:14+00:00,groq_gptoss,SELL,65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring,Rings,-102479856423,321.14240133500005,AI/baseline requested exit
+2026-11-23T00:49:06+00:00,groq_gptoss,BUY,6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx,STONK,8845744307840,-321.14240133500005,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T00:49:15+00:00,momentum_baseline,SELL,6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump,VINE,-9155328658,79.98432198,AI/baseline requested exit
+2026-11-23T01:51:15+00:00,groq_gptoss,SELL,6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx,STONK,-8845744307840,317.05561296,AI/baseline requested exit
+2026-11-23T02:53:19+00:00,groq_gptoss,BUY,GMzuntWYJLpNuCizrSR7ZXggiMdDzTNiEmSNHHunpump,dreams,77694906181,-317.05561296,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T02:53:28+00:00,momentum_baseline,BUY,GMzuntWYJLpNuCizrSR7ZXggiMdDzTNiEmSNHHunpump,dreams,20631219118,-84.09,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T03:55:50+00:00,groq_gptoss,SELL,GMzuntWYJLpNuCizrSR7ZXggiMdDzTNiEmSNHHunpump,dreams,-77694906181,306.053875075,AI/baseline requested exit
+2026-11-23T03:56:02+00:00,momentum_baseline,BUY,BzPyyYCTmQNq2BcfQ4ANAvCYk54rnmQEXMFvFT8RhWMi,MCAT,159138605795,-83.77,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T04:58:33+00:00,groq_gptoss,BUY,ZBCNpuD7YMXzTHB2fhGkGi78MNsHGLRXUhRewNRm9RU,ZBCN,165428154244,-306.053875075,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T04:58:44+00:00,momentum_baseline,SELL,BzPyyYCTmQNq2BcfQ4ANAvCYk54rnmQEXMFvFT8RhWMi,MCAT,-159138605795,65.243869605,AI/baseline requested exit
+2026-11-23T06:00:54+00:00,momentum_baseline,SELL,GMzuntWYJLpNuCizrSR7ZXggiMdDzTNiEmSNHHunpump,dreams,-20631219118,77.61514937,AI/baseline requested exit
+2026-11-23T06:16:33+00:00,groq_gptoss,SELL,ZBCNpuD7YMXzTHB2fhGkGi78MNsHGLRXUhRewNRm9RU,ZBCN,-165428154244,299.98816801500004,AI/baseline requested exit
+2026-11-23T07:18:56+00:00,groq_gptoss,BUY,9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump,Fartcoin,3612694424,-299.98816801500004,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T08:21:05+00:00,groq_gptoss,SELL,9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump,Fartcoin,-3612694424,292.43380663,AI/baseline requested exit
+2026-11-23T09:07:44+00:00,groq_gptoss,BUY,1zJX5gRnjLgmTpq5sVwkq69mNDQkCemqoasyjaPW6jm,KLED,26223156444283,-292.43380663,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T09:07:56+00:00,momentum_baseline,BUY,1zJX5gRnjLgmTpq5sVwkq69mNDQkCemqoasyjaPW6jm,KLED,7280193076142,-81.09,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T10:10:35+00:00,groq_gptoss,SELL,1zJX5gRnjLgmTpq5sVwkq69mNDQkCemqoasyjaPW6jm,KLED,-26223156444283,285.47241251,AI/baseline requested exit
+2026-11-23T10:10:49+00:00,momentum_baseline,SELL,1zJX5gRnjLgmTpq5sVwkq69mNDQkCemqoasyjaPW6jm,KLED,-7280193076142,79.144117115,AI/baseline requested exit
+2026-11-23T13:16:17+00:00,momentum_baseline,BUY,463SK47VkB7uE7XenTHKiVcMtxRsfNE2X4Q9wByaURVA,TSUKI,23198245622069,-80.86,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T14:18:40+00:00,groq_gptoss,BUY,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,1133399851,-285.47241251,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T14:18:53+00:00,momentum_baseline,SELL,463SK47VkB7uE7XenTHKiVcMtxRsfNE2X4Q9wByaURVA,TSUKI,-23198245622069,88.61538679499999,AI/baseline requested exit
+2026-11-23T17:25:53+00:00,momentum_baseline,BUY,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,25508892275,-81.79,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T18:28:24+00:00,momentum_baseline,SELL,Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr,FLOAT,-25508892275,77.97918405,AI/baseline requested exit
+2026-11-23T20:33:02+00:00,momentum_baseline,BUY,GMzuntWYJLpNuCizrSR7ZXggiMdDzTNiEmSNHHunpump,dreams,23901846611,-81.33,Jupiter quote-only; conservative adverse-fill haircut
+2026-11-23T21:35:27+00:00,momentum_baseline,SELL,GMzuntWYJLpNuCizrSR7ZXggiMdDzTNiEmSNHHunpump,dreams,-23901846611,79.13799288999999,AI/baseline requested exit
+2026-11-24T00:10:37+00:00,gemini_free,SELL,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,-3048577437,718.0442566500001,7-day deadline mandatory liquidation
+2026-11-24T00:10:39+00:00,groq_gptoss,SELL,JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN,JUP,-1133399851,266.946204035,7-day deadline mandatory liquidation
+2026-11-24T00:10:41+00:00,groq_qwen,SELL,Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk,USELESS,-5392627711,411.12377164500003,7-day deadline mandatory liquidation

@@ -1,5 +1,5 @@
 {
-  "status":"LIVE",
+  "status":"FINISHED",
   "meta":{
     "preflight_passed_at":1794873826.7559683,
     "preflight_models":{
@@ -10,7 +10,6 @@
     "started_at":1794873831.4168396,
     "deadline":1795478631.4168396,
     "start_fx_cad_per_usd":1.4285,
-    "finished":false,
     "last_ai_round_at":1795477190.873141,
     "last_heartbeat":"2026-11-23T23:55:03+00:00",
     "fx_status":"CURRENT",
@@ -20,7 +19,9 @@
     "last_candidate_count":8,
     "iteration":426,
     "last_healthy_tick":"2026-11-23T23:55:15+00:00",
-    "last_completed_tick":"2026-11-23T23:55:15+00:00"
+    "last_completed_tick":"2026-11-23T23:55:15+00:00",
+    "finished":true,
+    "finished_at":"2026-11-24T00:10:41+00:00"
   },
   "scoreboard":[
     {
@@ -29,21 +30,13 @@
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-23T23:39:44+00:00",
-      "nav_cad":1031.51,
-      "pnl_cad":31.51,
-      "return_pct":3.15,
-      "cash_usd":0.0,
-      "exposure_pct":100.0,
+      "nav_cad":1031.26,
+      "pnl_cad":31.26,
+      "return_pct":3.13,
+      "cash_usd":718.04,
+      "exposure_pct":0.0,
       "unsellable":0,
-      "holdings":[
-        {
-          "symbol":"JUP",
-          "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-          "quantity_raw":3048577437,
-          "decimals":6,
-          "cost_usd":650.0311221950001
-        }
-      ]
+      "holdings":[]
     },
     {
       "agent":"momentum_baseline",
@@ -65,21 +58,13 @@
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-23T23:39:50+00:00",
-      "nav_cad":587.94,
-      "pnl_cad":-412.06,
-      "return_pct":-41.21,
-      "cash_usd":0.0,
-      "exposure_pct":100.0,
+      "nav_cad":590.46,
+      "pnl_cad":-409.54,
+      "return_pct":-40.95,
+      "cash_usd":411.12,
+      "exposure_pct":0.0,
       "unsellable":0,
-      "holdings":[
-        {
-          "symbol":"USELESS",
-          "mint":"Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-          "quantity_raw":5392627711,
-          "decimals":6,
-          "cost_usd":522.51017707
-        }
-      ]
+      "holdings":[]
     },
     {
       "agent":"groq_gptoss",
@@ -87,24 +72,43 @@
       "last_decision":"HOLD",
       "last_decision_health":"OK",
       "last_decision_at":"2026-11-23T23:39:50+00:00",
-      "nav_cad":383.47,
-      "pnl_cad":-616.53,
-      "return_pct":-61.65,
-      "cash_usd":0.0,
-      "exposure_pct":100.0,
+      "nav_cad":383.39,
+      "pnl_cad":-616.61,
+      "return_pct":-61.66,
+      "cash_usd":266.95,
+      "exposure_pct":0.0,
       "unsellable":0,
-      "holdings":[
-        {
-          "symbol":"JUP",
-          "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-          "quantity_raw":1133399851,
-          "decimals":6,
-          "cost_usd":285.47241251
-        }
-      ]
+      "holdings":[]
     }
   ],
   "trades":[
+    {
+      "at_utc":"2026-11-24T00:10:41+00:00",
+      "agent":"groq_qwen",
+      "side":"SELL",
+      "mint":"Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
+      "symbol":"USELESS",
+      "usd_amount":411.12377164500003,
+      "note":"7-day deadline mandatory liquidation"
+    },
+    {
+      "at_utc":"2026-11-24T00:10:39+00:00",
+      "agent":"groq_gptoss",
+      "side":"SELL",
+      "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+      "symbol":"JUP",
+      "usd_amount":266.946204035,
+      "note":"7-day deadline mandatory liquidation"
+    },
+    {
+      "at_utc":"2026-11-24T00:10:37+00:00",
+      "agent":"gemini_free",
+      "side":"SELL",
+      "mint":"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+      "symbol":"JUP",
+      "usd_amount":718.0442566500001,
+      "note":"7-day deadline mandatory liquidation"
+    },
     {
       "at_utc":"2026-11-23T21:35:27+00:00",
       "agent":"momentum_baseline",
@@ -661,33 +665,6 @@
       "mint":"METvsvVRapdj9cFLzq4Tr43xK4tAjQfwX76z3n6mWQL",
       "symbol":"MET",
       "usd_amount":458.44307719000005,
-      "note":"AI/baseline requested exit"
-    },
-    {
-      "at_utc":"2026-11-21T11:47:18+00:00",
-      "agent":"momentum_baseline",
-      "side":"SELL",
-      "mint":"6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump",
-      "symbol":"VINE",
-      "usd_amount":84.636632535,
-      "note":"AI/baseline requested exit"
-    },
-    {
-      "at_utc":"2026-11-21T11:47:03+00:00",
-      "agent":"groq_gptoss",
-      "side":"BUY",
-      "mint":"METvsvVRapdj9cFLzq4Tr43xK4tAjQfwX76z3n6mWQL",
-      "symbol":"MET",
-      "usd_amount":-461.79477648000005,
-      "note":"Jupiter quote-only; conservative adverse-fill haircut"
-    },
-    {
-      "at_utc":"2026-11-21T10:44:35+00:00",
-      "agent":"groq_gptoss",
-      "side":"SELL",
-      "mint":"BYKQkHKMWHidNBLQXgt7NX4PLUtJZRYGLWQYkJzPGenX",
-      "symbol":"Trader",
-      "usd_amount":461.79477648000005,
       "note":"AI/baseline requested exit"
     }
   ],
@@ -1419,10 +1396,6 @@
   ],
   "history":{
     "gemini_free":[
-      {
-        "at":"2026-11-19T08:46:55+00:00",
-        "equity":966.66
-      },
       {
         "at":"2026-11-19T09:02:25+00:00",
         "equity":968.86
@@ -3018,13 +2991,13 @@
       {
         "at":"2026-11-23T23:55:15+00:00",
         "equity":1031.51
+      },
+      {
+        "at":"2026-11-24T00:10:37+00:00",
+        "equity":1031.26
       }
     ],
     "groq_gptoss":[
-      {
-        "at":"2026-11-19T08:46:55+00:00",
-        "equity":986.47
-      },
       {
         "at":"2026-11-19T09:02:25+00:00",
         "equity":990.55
@@ -4620,13 +4593,13 @@
       {
         "at":"2026-11-23T23:55:15+00:00",
         "equity":383.47
+      },
+      {
+        "at":"2026-11-24T00:10:39+00:00",
+        "equity":383.39
       }
     ],
     "groq_qwen":[
-      {
-        "at":"2026-11-19T08:46:55+00:00",
-        "equity":804.49
-      },
       {
         "at":"2026-11-19T09:02:25+00:00",
         "equity":799.01
@@ -6222,13 +6195,13 @@
       {
         "at":"2026-11-23T23:55:15+00:00",
         "equity":587.94
+      },
+      {
+        "at":"2026-11-24T00:10:41+00:00",
+        "equity":590.46
       }
     ],
     "momentum_baseline":[
-      {
-        "at":"2026-11-19T08:46:55+00:00",
-        "equity":976.85
-      },
       {
         "at":"2026-11-19T09:02:25+00:00",
         "equity":976.85
@@ -7824,10 +7797,14 @@
       {
         "at":"2026-11-23T23:55:15+00:00",
         "equity":969.89
+      },
+      {
+        "at":"2026-11-24T00:10:41+00:00",
+        "equity":969.89
       }
     ]
   },
-  "total_trades":145,
-  "asof_utc":"2026-11-23T23:55:15.480405+00:00",
+  "total_trades":148,
+  "asof_utc":"2026-11-24T00:10:42.279960+00:00",
   "next_required":[]
 }
